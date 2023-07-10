@@ -58,19 +58,31 @@ class Dashboard extends BaseController
                     ],
                     'number' => [
                         'label'  => 'Numero',
-                        'rules'  => 'permit_empty|exact_length[13]'
+                        'rules'  => 'permit_empty|exact_length[13]',
+                        'errors' => [
+                            'exact_length' => 'Veuillez respecter le format',
+                        ],
                     ],
                     'fullname' => [
                         'label'  => 'Nom Complet',
-                        'rules'  => 'alpha_space'
+                        'rules'  => 'alpha_space',
+                        'errors' => [
+                            'alpha_space' => 'Merci de vérifier le Nom',
+                        ],
                     ],
                     'email' => [
                         'label'  => 'Email Adresse',
-                        'rules'  => 'permit_empty|valid_emails'
+                        'rules'  => 'permit_empty|valid_emails',
+                        'errors' => [
+                            'valid_emails' => 'Veuillez entrer une adresse email valide',
+                        ],
                     ],
                     'adress' => [
                         'label'  => 'Entrer votre Adresse',
-                        'rules'  => 'permit_empty|alpha_space'
+                        'rules'  => 'permit_empty|alpha_space',
+                        'errors' => [
+                            'alpha_space' => 'Merci de vérifier le Nom saisi',
+                        ],
                     ],
                 );
                 if( $this->validate($validation_rules) === false )
@@ -78,15 +90,16 @@ class Dashboard extends BaseController
                     $method = $this->request->getMethod();
                     switch( $method ){
                         case 'post':
-                            $this->view_data['validation'] =  $this->validator;
+                            echo view('parametre', array('validation' => $this->validator));
                             break;
                         case 'get':
-                            $this->view_data['special_message'] = $this->session->getFlashdata('special_message');
+                            $message = $this->session->getFlashdata('special_message');
+                            echo view('parametre', array('special_message' => $message));
                             break;
                         default:
                             die('something is wrong here');
                     }
-                    return view('parametre');
+                    return;
                 }
                 $userModel = new User();
 
@@ -143,11 +156,19 @@ class Dashboard extends BaseController
         $validation_rules = array(
             'password1' => [
                 'label'  => 'Entrer le nouveau password',
-                'rules'  => 'required|min_length[5]'
+                'rules'  => 'required|min_length[5]',
+                'errors' => [
+                    'required' => 'Veuillez entrer le nouveau mot de passe',
+                    'min_length' =>  'Le mot de passe doit contenir minimum 5 charactères',
+                ],
 			],
 			'password2' => [
                 'label'  => 'Ressaisir le nouveau password',
-                'rules'  => 'required|matches[password1]'
+                'rules'  => 'required|matches[password1]',
+                'errors' => [
+                    'required' => 'Veuillez ressaisir le nouveau mot de passe',
+                    'matches' =>  'Le mot de passe saisi ne correspond pas',
+                ],
             ],
         );
         
@@ -156,15 +177,16 @@ class Dashboard extends BaseController
             $method = $this->request->getMethod();
             switch( $method ){
                 case 'post':
-                    $this->view_data['validation'] = $this->validator;
+                    echo view('common_update_password', array('validation' => $this->validator));
                     break;
                 case 'get':
-                    $this->view_data['special_message'] = $this->session->getFlashdata('special_message');
+                    $message = $this->session->getFlashdata('special_message');
+                    echo view('common_update_password', array('special_message' => $message));
                     break;
                 default:
                     die('something is wrong here');
             }
-            return view('common_update_password');
+            return;
         }
 
         $userModel = new User();

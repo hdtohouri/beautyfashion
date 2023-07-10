@@ -9,8 +9,22 @@ class Login extends BaseController
     public function index()
     {
         $validation_rules = array(
-            'UserName' => ['label'  => "Nom d'utilisateur", 'rules'  => 'required'],
-            'UserPwd' => ['label'  => 'Mot de passe', 'rules'  => 'required']
+            'UserName' => [
+                'label'  => "Nom d'utilisateur",
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => "Veuillez saisir votre nom d'utilisateur",
+                ],
+            
+            ],
+            'UserPwd' => [
+                'label'  => 'Mot de passe', 
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => "Veuillez saisir votre mot de passe",
+                ],
+                
+            ]
         );
         
 	    if( $this->validate($validation_rules) === false )

@@ -23,12 +23,10 @@
     <?php if(session('logged_in')): ?>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
-        <?php echo view('template/sidebar.php');?>
+        <?php echo view('template/adminsidebar.php');?>
         <!-- /#sidebar-wrapper -->
         <?php echo view('template/container.php');?>
         <?php
-            if( isset($validation) )
-            echo "<div style='color: #ff0000'>".$validation->getErrors()."</div>";
 
             if( isset($special_message) )
             echo $special_message;
@@ -44,10 +42,16 @@
                             <div class="mb-4">
                                 <label for="password1" class="form-label">Nouveau mot de passe</label>
                                 <input type="password"  class="form-control" name="password1" id="password1" placeholder="Entrer le nouveau password"/>
+                                <?php  if (isset($validation) && $validation->hasError('password1')) {
+                                    echo "<div style='color: #ff0000'>".$validation->getError('password1')."</div>";
+                                } ?>
                             </div>
                             <div class="mb-4">
                                 <label for="password2" class="form-label">Ressaisir le nouveau password</label>
                                 <input type="password"  class="form-control" name="password2" id="password2" placeholder="Ressaisir le nouveau password"/>
+                                <?php  if (isset($validation) && $validation->hasError('password2')) {
+                                    echo "<div style='color: #ff0000'>".$validation->getError('password2')."</div>";
+                                } ?>
                             </div>
                             <input type="submit" class="btn btn-primary btn-user btn-block" value="Enregistrer" />
                         </form>

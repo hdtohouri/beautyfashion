@@ -27,8 +27,6 @@
         <!-- /#sidebar-wrapper -->
         <?php echo view('template/container.php');?>
         <?php
-            if( isset($validation) )
-            echo "<div style='color: #ff0000'>".$validation->getErrors()."</div>";
 
             if( isset($special_message) )
             echo $special_message;
@@ -45,22 +43,37 @@
                             <i class="fas fa-camera"></i>
                             <label for="image" class="form-label">Photo de Profil</label>
                             <input class="form-control" type="file" name="file">
+                            <?php  if (isset($validation) && $validation->hasError('file')) {
+                                    echo "<div style='color: #ff0000'>".$validation->getError('file')."</div>";
+                            } ?>
                         </div>
                         <div class="mb-4">
                             <label for="image" class="form-label">Numero de Téléphone</label>
                             <input type="tel"  class="form-control" name="number" placeholder="Veuillez saisir votre Numero au format +212658749622"/>
+                            <?php  if (isset($validation) && $validation->hasError('number')) {
+                                    echo "<div style='color: #ff0000'>".$validation->getError('number')."</div>";
+                            } ?>
                         </div>
                         <div class="mb-4">
                             <label for="image" class="form-label">Nom Complet</label>
                             <input type="text"  class="form-control" name="fullname" placeholder="Veuillez saisir votre nom complet"/>
+                            <?php  if (isset($validation) && $validation->hasError('fullname')) {
+                                    echo "<div style='color: #ff0000'>".$validation->getError('fullname')."</div>";
+                            } ?>
                         </div>
                         <div class="mb-4 form-group">
                             <label for="image" class="form-label">Adresse Email</label>
                             <input type="email" class="form-control form-control-user" name="email" placeholder="Veuillez saisir votre adresse email"/>
+                            <?php  if (isset($validation) && $validation->hasError('email')) {
+                                    echo "<div style='color: #ff0000'>".$validation->getError('email')."</div>";
+                            } ?>
                         </div>
                         <div class="mb-4 form-group">
                             <label for="image" class="form-label">Lieu de résidence</label>
                             <input type="text" class="form-control form-control-user" name="adress" placeholder="Veuillez saisir votre adresse de résidence" />
+                            <?php  if (isset($validation) && $validation->hasError('adress')) {
+                                    echo "<div style='color: #ff0000'>".$validation->getError('adress')."</div>";
+                            } ?>
                         </div>
                         <input type="submit" class="btn btn-primary btn-user btn-block" value="Enregistrer"/>
                     </form>
