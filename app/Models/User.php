@@ -174,5 +174,20 @@ class User extends Model
         else{
             return false;
         }
-   }
+    }
+
+    public function get_old_pic($user_id)
+    {
+        $builder = $this->db->table('users');
+        $builder->select('user_id,user_name,pic_profil');
+        $builder->where('user_id', $user_id);
+        $result = $builder->get();
+        $user_details = $result->getRowArray();
+        if(count($result->getResultArray())== 1)
+        {  
+            return  ['user_details'=>$user_details]; 
+        }
+    }
+
+
 }

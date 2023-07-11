@@ -26,11 +26,14 @@
         <?php echo view('template/sidebar.php');?>
         <!-- /#sidebar-wrapper -->
         <?php echo view('template/container.php');?>
+
         <?php
             if( isset($special_message) )
             echo $special_message;
         ?>
         <br>
+                           
+    <?php endif; ?>  
         
     <div class="row ">
         <div class="col-lg-10">
@@ -81,12 +84,14 @@
             </div>
         </div>
     </div>
-    
-    
-    <?php else: ?>                    
-    <?php endif; ?>   
+ 
     <!-- /#page-content-wrapper -->
     </div>
+    <script>
+        function rafraichirPage() {
+            location.reload(); // Actualiser la page
+            }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>

@@ -26,20 +26,11 @@
         <?php echo view('template/sidebar.php');?>
         <!-- /#sidebar-wrapper -->
         <?php echo view('template/container.php');?>
-                <div class="row my-5">
-                    <h3 class="fs-4 mb-3">Liste des Utilisateurs</h3>
-                    <div class="col">
-                        
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
+                
     <?php else: ?>                    
     <?php endif; ?>   
     <!-- /#page-content-wrapper -->
-    </div>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>

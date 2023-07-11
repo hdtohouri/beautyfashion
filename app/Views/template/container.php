@@ -20,7 +20,11 @@
                         </button>
                        
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <?php if(session('level')=== 'users'):?>
                                 <li><a class="dropdown-item" href="<?php echo base_url('common/dashboard/parametre') ;?>">Parametre</a></li>
+                                <?php else: ?>
+                                <li><a class="dropdown-item" href="<?php echo base_url('common/admindashboard/adminparametre') ;?>">Parametre</a></li>
+                                <?php endif; ?>
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li><a class="dropdown-item" href="<?php echo base_url('common/logout'); ?>">Deconnexion</a></li>
                             </ul>
@@ -48,7 +52,7 @@
                                 <p class="fs-5">Ventes</p>
                             </div>
                             <i
-                                class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                                class="fas fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>
                     </div>
 
@@ -56,17 +60,17 @@
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
                                 <h3 class="fs-2">3899</h3>
-                                <p class="fs-5">Delivery</p>
+                                <p class="fs-5">Profit</p>
                             </div>
-                            <i class="fas fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            <i class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">%25</h3>
-                                <p class="fs-5">Montant</p>
+                                <h3 class="fs-2">2500</h3>
+                                <p class="fs-5">Revenu</p>
                             </div>
                             <i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>

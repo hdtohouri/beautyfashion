@@ -112,14 +112,21 @@ class AdminDashboard extends BaseController
             
             $data = [];
             if (!empty($profil_pic)) {
+                
+                $old_pic = $userModel->get_old_pic(session('user_id'));
+                $old_pic_path = $old_pic['user_details']['pic_profil'];
+                $old_pic_name = basename($old_pic_path);
+                
                 $newName = $profil_pic->getRandomName();
                 $profil_pic->move('./uploads', $newName);
+                $remove = unlink('uploads/'.$old_pic_name);
                 $url = base_url().'uploads'.'/'.$newName;
                 $data['pic_profil'] = $url;
+                
             }
 
             if (!empty($user_number)) {
-                $data['numero'] = $user_number;
+                $data['user_number'] = $user_number;
             }
             
             if (!empty($user_fullname)) {
@@ -131,7 +138,7 @@ class AdminDashboard extends BaseController
             }
             
             if (!empty($user_adress)) {
-                $data['adresse'] = $user_adress;
+                $data['user_adress'] = $user_adress;
             }
             
             $updated = $userModel->update_data(session('user_id'), $data);

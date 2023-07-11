@@ -70,7 +70,7 @@
                             <p class="mb-0">Contact :</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0"><strong><?php echo session('numero'); ?></strong></p>
+                            <p class="text-muted mb-0"><strong><?php echo session('user_number'); ?></strong></p>
                         </div>
                         </div>
                         <hr>
@@ -79,7 +79,7 @@
                             <p class="mb-0">Addresse :</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0"><strong><?php echo session('adresse'); ?></strong></p>
+                            <p class="text-muted mb-0"><strong><?php echo session('user_adress'); ?></strong></p>
                         </div>
                         </div>
                     </div>

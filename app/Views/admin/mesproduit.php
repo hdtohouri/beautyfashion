@@ -23,7 +23,7 @@
     <?php if(session('logged_in')): ?>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
-        <?php echo view('template/adminsidebar.php');?>
+        <?php echo view('template/sidebar.php');?>
         <!-- /#sidebar-wrapper -->
         <?php echo view('template/container.php');?>
                 <div class="row my-5">

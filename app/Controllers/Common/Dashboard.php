@@ -111,26 +111,33 @@ class Dashboard extends BaseController
             
             $data = [];
             if (!empty($profil_pic)) {
+                
+                $old_pic = $userModel->get_old_pic(session('user_id'));
+                $old_pic_path = $old_pic['user_details']['pic_profil'];
+                $old_pic_name = basename($old_pic_path);
+                
                 $newName = $profil_pic->getRandomName();
                 $profil_pic->move('./uploads', $newName);
+                $remove = unlink('uploads/'.$old_pic_name);
                 $url = base_url().'uploads'.'/'.$newName;
                 $data['pic_profil'] = $url;
+                
             }
 
             if (!empty($user_number)) {
-                $data['numero'] = $user_number;
+                $data['user_number'] = $user_number;
             }
             
             if (!empty($user_fullname)) {
                 $data['full_name'] = $user_fullname;
             }
-            var_dump($user_fullname);
+            
             if (!empty($user_email)) {
                 $data['user_email'] = $user_email;
             }
             
             if (!empty($user_adress)) {
-                $data['adresse'] = $user_adress;
+                $data['user_adress'] = $user_adress;
             }
             
             $updated = $userModel->update_data(session('user_id'), $data);
@@ -140,10 +147,12 @@ class Dashboard extends BaseController
                 $message = "<div class='alert alert-success' role='alert'>Mise à Jour éffectuée.</div>";
                 echo view('parametre', array('special_message' => $message));
                 $this->session->set($data);
+                return;
             }
 
             else
             {
+                $this->session()->getTempdata('error','Une erreur est survenue. Merci de reésayer.',6 );
                 $message = "<div class='alert alert-danger' role='alert'>Une erreur est survenue. Merci de reésayer</div>";
                 echo view('parametre', array('special_message' => $message));
                 return;
@@ -208,6 +217,26 @@ class Dashboard extends BaseController
         }
     }
 
+    public function stock()
+    {
+        if(!session('logged_in')){
+            $message = "<div class='alert alert-danger' role='alert'>Veuillez vous identifier !</div>";
+            echo view('login_page', array('special_message' => $message));
+        }
+        else{     
+            return view("stock_view");
+        }
+    }
 
-   
+    public function rapports()
+    {
+        if(!session('logged_in')){
+            $message = "<div class='alert alert-danger' role='alert'>Veuillez vous identifier !</div>";
+            echo view('login_page', array('special_message' => $message));
+        }
+        else{     
+            return view("rapports_view");
+        }
+    }
+    
 }
