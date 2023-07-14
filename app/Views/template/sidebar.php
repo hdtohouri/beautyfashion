@@ -1,16 +1,10 @@
 
         <!-- Sidebar -->
         <div class="bg-white" id="sidebar-wrapper">
-            <?php if(session('pic_profil')): ?>
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
             <img class="avatar avatar-128 rounded-circle p-1"
-                    src="<?php echo session('pic_profil'); ?>" height='175' alt="avatar"></div>
-                
-                <?php else: ?>
-                    <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold border-bottom">
-                    <img class="avatar avatar-128 rounded-circle p-1"
-                    src="<?php echo base_url('img/user.webp')?>" height='175' alt="avatar"></div>
-                <?php endif; ?> 
+                    src="<?php echo base_url("img/logo.png") ?>" alt ="logo" height='160'></div>
+
                 <?php if(session('level')==='user'): ?>
             <div class="list-group list-group-flush my-3">
                 <a href="<?php echo base_url('common/dashboard') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
@@ -20,17 +14,17 @@
                 <a href="<?php echo base_url('common/dashboard/compte') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-check-circle me-2"></i>Mon Compte</a>
                 <a href="<?php echo base_url('common/dashboard/stock') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-cart-arrow-down me-2"></i>Etat Stock</a>
+                        class="fas fa-cart-arrow-down me-2"></i>Etat Stock  <i class="fas fa-sort-down ms-5"></i></a>
                         <a href="<?php echo base_url('common/dashboard/rapports') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-tasks me-2"></i>Rapports</a> 
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-shopping-cart me-2"></i>Store Mng</a>
+                        class="fas fa-tasks me-2"></i>Rapports  <i class="fas fa-sort-down ms-5"></i></a> 
                 <a href="<?php echo base_url('common/dashboard/produit'); ?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-gift me-2"></i>Produits</a>
+                        class="fas fa-gift me-2"></i>Produits  <i class="fas fa-sort-down ms-5"></i></a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-comment-dots me-2"></i>Chat</a>
+                        class="fas fa-shopping-cart me-2"></i>Store</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-map-marker-alt me-2"></i>Outlet</a>
+                        class="fas fa-comment-dots me-2"></i>Rapports</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-map-marker-alt me-2"></i>Rapports</a>
                 <a href="<?php echo base_url('common/logout'); ?>" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                         class="fas fa-power-off me-2"></i>Deconnexion</a>
             </div>
@@ -47,17 +41,17 @@
                 <a href="<?php echo base_url('common/admindashboard/list_user') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-users me-2"></i>Utilisateurs</a>
                 <a href="<?php echo base_url('common/admindashboard/list_user') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-cart-arrow-down me-2"></i>Etat Stock</a>
+                        class="fas fa-cart-arrow-down me-2"></i>Etat Stock <i class="fas fa-sort-down ms-5"></i></a>
                 <a href="<?php echo base_url('common/admindashboard/list_user') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-paperclip me-2"></i>Rapports</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-shopping-cart me-2"></i>Store Mng</a>
+                        class="fas fa-paperclip me-2"></i>Rapports <i class="fas fa-sort-down ms-5"></i></a>
                 <a href="<?php echo base_url('common/admindashboard/adminproduit'); ?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-gift me-2"></i>Produits</a>
+                        class="fas fa-gift me-2"></i>Produits <i class="fas fa-sort-down ms-5"></i></a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-comment-dots me-2"></i>Chat</a>
+                        class="fas fa-shopping-cart me-2"></i>Store</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-map-marker-alt me-2"></i>Outlet</a>
+                        class="fas fa-comment-dots me-2"></i>Rapports</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-map-marker-alt me-2"></i>Rapports</a>
                 <a href="<?php echo base_url('common/logout'); ?>" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                         class="fas fa-power-off me-2"></i>Deconnexion</a>
             </div>

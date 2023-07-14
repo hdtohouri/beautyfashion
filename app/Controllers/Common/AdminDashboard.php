@@ -49,13 +49,6 @@ class AdminDashboard extends BaseController
         }
         else{
             $validation_rules = array(
-                'file' => [
-                    'permit_empty',
-                    'is_image[file]',
-                    'uploaded[file]',
-                    'mime_in[file,image/jpg,image/jpeg,image/png,image/webp]',
-                    'max_size[file,1024]',
-                ],
                 'number' => [
                     'label'  => 'Numero',
                     'rules'  => 'permit_empty|exact_length[13]',
@@ -104,27 +97,13 @@ class AdminDashboard extends BaseController
             
             $userModel = new User();
 
-            $profil_pic = $this->request->getFile('file');  
             $user_number = $this->request->getPost('number',FILTER_SANITIZE_NUMBER_INT);
             $user_email= $this->request->getPost('email',FILTER_SANITIZE_EMAIL);
             $user_fullname = $this->request->getPost('fullname',FILTER_SANITIZE_STRING);
             $user_adress = $this->request->getPost('adress',FILTER_SANITIZE_STRING);
             
             $data = [];
-            if (!empty($profil_pic)) {
-                
-                $old_pic = $userModel->get_old_pic(session('user_id'));
-                $old_pic_path = $old_pic['user_details']['pic_profil'];
-                $old_pic_name = basename($old_pic_path);
-                
-                $newName = $profil_pic->getRandomName();
-                $profil_pic->move('./uploads', $newName);
-                $remove = unlink('uploads/'.$old_pic_name);
-                $url = base_url().'uploads'.'/'.$newName;
-                $data['pic_profil'] = $url;
-                
-            }
-
+        
             if (!empty($user_number)) {
                 $data['user_number'] = $user_number;
             }

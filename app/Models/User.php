@@ -30,7 +30,7 @@ class User extends Model
     public function get_permissions($user_name,$password)
     {
         $builder = $this->db->table('users');
-        $builder->select('user_id,user_name,user_pwd, full_name,user_email,user_number, pic_profil,user_pwd,user_status,user_adress,level');
+        $builder->select('user_id,user_name,user_pwd, full_name,user_email,user_number,user_pwd,user_status,user_adress,level');
         $builder->where('user_name', $user_name);
         $builder->where('user_pwd', strtoupper(hash('SHA256',$password)));
         $result = $builder->get();
@@ -45,7 +45,7 @@ class User extends Model
     {
         $builder = $this->builder();
         $builder = $this->db->table('users');
-        $builder->select('user_id,user_name,user_pwd, full_name,user_email,user_number, pic_profil,user_pwd,user_status,user_adress,level');
+        $builder->select('user_id,user_name,user_pwd, full_name,user_email,user_number,user_pwd,user_status,user_adress,level');
         $builder->where('code', $code);
         $result = $builder->get();
         $user_details = $result->getRowArray();

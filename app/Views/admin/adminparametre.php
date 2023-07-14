@@ -31,6 +31,7 @@
             if( isset($special_message) )
             echo $special_message;
         ?>
+        <?php endif; ?>   
         <br>
         
     <div class="row ">
@@ -39,14 +40,7 @@
                 <div class="card-body">
                 <div class="container my-3">
                     <form class="user" method="post" action="<?= base_url('common/admindashboard/adminparametre') ?>" enctype="multipart/form-data" autocomplete="off">
-                        <div class="mb-4">
-                            <i class="fas fa-camera"></i>
-                            <label for="image" class="form-label">Photo de Profil</label>
-                            <input class="form-control" type="file" name="file">
-                            <?php  if (isset($validation) && $validation->hasError('file')) {
-                                    echo "<div style='color: #ff0000'>".$validation->getError('file')."</div>";
-                            } ?>
-                        </div>
+                
                         <div class="mb-4">
                             <label for="image" class="form-label">Numero de Téléphone</label>
                             <input type="tel"  class="form-control" name="number" placeholder="Veuillez saisir votre Numero au format +212658749622"/>
@@ -82,10 +76,7 @@
             </div>
         </div>
     </div>
-    
-    
-    <?php else: ?>                    
-    <?php endif; ?>   
+
     <!-- /#page-content-wrapper -->
     </div>
 

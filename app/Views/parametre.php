@@ -41,14 +41,7 @@
                 <div class="card-body">
                 <div class="container my-3">
                     <form class="user" method="post" action="<?= base_url('common/dashboard/parametre') ?>" enctype="multipart/form-data" autocomplete="off">
-                        <div class="mb-4">
-                            <i class="fas fa-camera"></i>
-                            <label for="file" class="form-label">Photo de Profil</label>
-                            <input class="form-control" type="file" name="file" id ="file">
-                            <?php  if (isset($validation) && $validation->hasError('file')) {
-                                    echo "<div style='color: #ff0000'>".$validation->getError('file')."</div>";
-                            } ?>
-                        </div>
+    
                         <div class="mb-4">
                             <label for="number" class="form-label">Numero de Téléphone</label>
                             <input type="tel"  class="form-control" name="number" id="number" placeholder="Veuillez saisir votre Numero au format +212658749622"/>
