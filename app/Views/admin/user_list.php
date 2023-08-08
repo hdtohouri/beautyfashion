@@ -23,13 +23,49 @@
     <?php if(session('logged_in')): ?>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
+        <?= view('admin/modal.php'); ?>
         <?php echo view('template/sidebar.php');?>
         <!-- /#sidebar-wrapper -->
         <?php echo view('template/container.php');?>
                 <div class="row my-5">
                     <h3 class="fs-4 mb-3">Liste des Utilisateurs</h3>
                     <div class="col">
-                        
+                <table class="table table-success">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prenom</th>
+                        <th scope="col">Etat du compte</th>
+                        <th scope="col">Actions disponibles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i=0; foreach($liste_user as $user): ?>
+                        <tr>
+                            <td><?= ++$i ?></td>
+                            <td><?= strtoupper($user['full_name']) ?></td>
+                            <td><?= strtoupper($user['user_name']) ?></td>
+                            <td><?= $user['user_status'] ?></td>
+                            <td> 
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal1" data-userid="<?= $user['user_id'] ?>">
+                                    <i class="fas fa-user-slash me-2" data-toggle="tooltip" title="Desactiver ce compte"></i>
+                                </button> 
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal2" data-userid="<?= $user['user_id'] ?>">
+                                    <i class="fas fa-user me-2" data-toggle="tooltip" title="Activer ce compte"></i> 
+                                </button>
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal3" data-userid="<?= $user['user_id'] ?>">
+                                    <i class="fas fa-user-times" data-toggle="tooltip" title="Supprimer ce compte"></i> 
+                                </button> 
+                                 
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                       
+                    </tbody>
+                </table>
+                
+                
                     </div>
                 </div>
 

@@ -74,7 +74,8 @@ class Login extends BaseController
                     'email_address' =>  $user_details['user_details']['user_email'],
                     'user_number' =>  $user_details['user_details']['user_number'],
                     'user_adress' =>  $user_details['user_details']['user_adress'],
-                    'level' =>  $user_details['user_details']['level']
+                    'level' =>  $user_details['user_details']['level'],
+                    'user_status' =>  $user_details['user_details']['user_status']
                 ];
                 
                 $this->session->set($data);
@@ -90,7 +91,8 @@ class Login extends BaseController
                     'email_address' =>  $user_details['user_details']['user_email'],
                     'user_number' =>  $user_details['user_details']['user_number'],
                     'user_adress' =>  $user_details['user_details']['user_adress'],
-                    'level' =>  $user_details['user_details']['level']
+                    'level' =>  $user_details['user_details']['level'],
+                    'user_status' =>  $user_details['user_details']['user_status']
                 ];
                 
                 $this->session->set($data);
@@ -106,7 +108,8 @@ class Login extends BaseController
                     'email_address' =>  $user_details['user_details']['user_email'],
                     'user_number' =>  $user_details['user_details']['user_number'],
                     'user_adress' =>  $user_details['user_details']['user_adress'],
-                    'level' =>  $user_details['user_details']['level']
+                    'level' =>  $user_details['user_details']['level'],
+                    'user_status' =>  $user_details['user_details']['user_status']
                 ];
                 
                 $this->session->set($data);
@@ -187,7 +190,14 @@ class Login extends BaseController
     public function forgotten_password()
     {   
          $validation_rules = array(
-        'email' => ['label'  => "Veuillez saisir votre adresse email", 'rules'  => 'required|valid_email'],
+        'email' => [
+            'label'  => "Veuillez saisir votre adresse email",
+             'rules'  => 'required|valid_email',
+             'errors' => [
+                'required' => "Merci de saisir votre adresse email",
+                'valid_email' => "Veuillez de saisir une adresse email valide"
+            ],
+        ],
         );
         if( $this->validate($validation_rules) === false )
         {
@@ -219,6 +229,7 @@ class Login extends BaseController
 
                 $fromEmail = getenv('EMAIL_FROM');
                 $fromName = getenv('EMAIL_FROM_NAME');
+                
                 $email->setFrom($fromEmail , $fromName);
                 $email->setTo($user_email);    
                 $code = bin2hex(random_bytes(3));   
@@ -231,9 +242,10 @@ class Login extends BaseController
                 $message .= '<p>Le code pour vous connecter à votre compte est <b>'.$code.'</b></p>'; 
                 $message .= '<p>Une fois connecté vous pourrez changer votre mot de passe.</p>'; 
                 $message .= '<p>Cliquez sur le bouton pour terminer la procédure.</p>'; 
-                $message .= '<a href= "'.base_url().'/common/login/reset_password/'.$token.'">Se Connecter</a>';
-                $message .= "<p>Contactez le service technique de BEAUTY FASHION, si vous n'êtes pas à l'origine de cette demande.,</p>";
+                $message .= '<a href= "'.base_url().'common/login/reset_password/'.$token.'">Se Connecter</a>';
+                $message .= "<p>Contactez le service technique de BEAUTY FASHION, si vous n'êtes pas à l'origine de cette demande.</p>";
                 $message .= '</body></html>';
+
                 $email->setMessage($message);
                 
                 if($email->send()){
@@ -263,10 +275,15 @@ class Login extends BaseController
     public function reset_password($token = null)
     {  
         $validation_rules = array(
-            'code' => [
-            'label'  => 'Veuillez saisir le code reçu par mail',
-            'rules'  => 'required|exact_length[6]'
-             ],
+            'code' => 
+            [
+                'label'  => 'Veuillez saisir le code reçu par mail',
+                'rules'  => 'required|exact_length[6]',
+                'errors' => [
+                    'required' => "Veuillez saisir le code reçu par mail",
+                    'exact_length' => "Le code saisit ne correspond pas, Veuillez réessayer"
+                ],
+            ],
         );
        
         $user_model = new User();
@@ -316,7 +333,8 @@ class Login extends BaseController
                                 'email_address' =>  $connexion['user_details']['user_email'],
                                 'user_number' =>  $connexion['user_details']['user_number'],
                                 'user_adress' =>  $connexion['user_details']['user_adress'],
-                                'level' =>  $connexion['user_details']['level']
+                                'level' =>  $connexion['user_details']['level'],
+                                'user_status' =>  $connexion['user_details']['user_status']
                             ];
                         
                             $this->session->set($data);
@@ -332,7 +350,8 @@ class Login extends BaseController
                                 'email_address' =>  $connexion['user_details']['user_email'],
                                 'user_number' =>  $connexion['user_details']['user_number'],
                                 'user_adress' =>  $connexion['user_details']['user_adress'],
-                                'level' =>  $connexion['user_details']['level']
+                                'level' =>  $connexion['user_details']['level'],
+                                'user_status' =>  $connexion['user_details']['user_status']
                             ];
     
                             $this->session->set($data);
@@ -348,7 +367,8 @@ class Login extends BaseController
                                 'email_address' =>  $connexion['user_details']['user_email'],
                                 'user_number' =>  $connexion['user_details']['user_number'],
                                 'user_adress' =>  $connexion['user_details']['user_adress'],
-                                'level' =>  $connexion['user_details']['level']
+                                'level' =>  $connexion['user_details']['level'],
+                                'user_status' =>  $connexion['user_details']['user_status']
                             ];
                         
                             $this->session->set($data);

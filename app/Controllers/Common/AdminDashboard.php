@@ -138,17 +138,22 @@ class AdminDashboard extends BaseController
         }
     }
 
-    public function list_user()
+    public function list_user($user_id = null)
     {
         if(!session('logged_in')){
             $message = "<div class='alert alert-danger' role='alert'>Veuillez vous identifier !</div>";
             echo view('login_page', array('special_message' => $message));
         }
-        else{     
-            return view("admin/user_list");
+        else{    
+            $userModel = new User();
+            $data['liste_user'] = $userModel->get_list();
+            //$this->session->set('selected_user_id', $user_id); 
+            //$dasactiate_user_account = $userModel->desactivate_user($user_id);
+            //var_dump( $dasactiate_user_account);
+            return view("admin/user_list",  $data);
         }
     }
-
+    
     public function modify_password()
     {
         if(!session('logged_in')){
@@ -212,4 +217,5 @@ class AdminDashboard extends BaseController
         }
        
     }
+
 }

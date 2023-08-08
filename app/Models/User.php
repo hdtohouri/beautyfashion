@@ -30,7 +30,7 @@ class User extends Model
     public function get_permissions($user_name,$password)
     {
         $builder = $this->db->table('users');
-        $builder->select('user_id,user_name,user_pwd, full_name,user_email,user_number,user_pwd,user_status,user_adress,level');
+        $builder->select('user_id,user_name,user_pwd, full_name,user_email,user_number,user_status,user_adress,level');
         $builder->where('user_name', $user_name);
         $builder->where('user_pwd', strtoupper(hash('SHA256',$password)));
         $result = $builder->get();
@@ -176,18 +176,55 @@ class User extends Model
         }
     }
 
-    public function get_old_pic($user_id)
+    public function desactivate_user($user_id)
     {
         $builder = $this->db->table('users');
-        $builder->select('user_id,user_name,pic_profil');
         $builder->where('user_id', $user_id);
-        $result = $builder->get();
-        $user_details = $result->getRowArray();
-        if(count($result->getResultArray())== 1)
-        {  
-            return  ['user_details'=>$user_details]; 
+        $builder->update(['user_status' => 'DESACTIVE']);
+        if($this->db->affectedRows()==1)
+        {
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
+    public function activate_user($user_id)
+    {
+        $builder = $this->db->table('users');
+        $builder->where('user_id', $user_id);
+        $builder->update(['user_status' => 'ACTIVE']);
+        if($this->db->affectedRows()==1)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
+    public function delete_user($user_id)
+    {
+        $builder = $this->db->table('users');
+        $builder->where('user_id', $user_id);
+        $builder->delete();
+        if($this->db->affectedRows()==1)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function get_list()
+    {
+       $builder = $this->builder();
+       $builder->select('user_id,user_name,full_name,user_status');
+       $builder->where('level !=',  'admin');
+       $builder = $this ->db->table('users');
+       $builder->orderBy('user_id', 'DESC');
+       return $this->findAll();
+    }
 }
