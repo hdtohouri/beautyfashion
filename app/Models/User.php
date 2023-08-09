@@ -227,4 +227,26 @@ class User extends Model
        $builder->orderBy('user_id', 'DESC');
        return $this->findAll();
     }
+
+    public function add_articles($data)
+    {
+        $builder = $this->builder();
+        $builder = $this->db->table('produits');
+        $builder->insert($data);
+        if($this->db->affectedRows()==1)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }				
+    
+    public function get_list_articles()
+    {
+        $builder = $this->db->table('produits');
+        $builder->select('id_produit, nom_produit, quantité, image_produit'); 
+        $builder->orderBy('id_produit', 'DESC');
+        return $builder->get()->getResult();
+    }
 }

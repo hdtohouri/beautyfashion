@@ -119,74 +119,6 @@ class Login extends BaseController
 
     }
 
-    public function register()
-	{
-        $validation_rules = array(
-            'Name' => [
-                'label'  => 'Saisir Votre Nom Complet',
-                'rules'  => 'required|min_length[3]'
-            ],
-            'email' => [
-                'label'  => 'Saisir votre email',
-                'rules'  => 'required|is_unique[users.user_email]|valid_emails'
-            ],
-            'UserName' => [
-                'label'  => "Nom d'utilisateur",
-                'rules'  => 'required|min_length[3]|max_length[10]'
-            ],
-            'UserPwd' => [
-                'label'  => 'Mot de passe',
-                'rules'  => 'required|min_length[4]|max_length[10]'
-            ]
-        );
-        
-	    if( $this->validate($validation_rules) === false )
-        {
-            $method = $this->request->getMethod();
-            switch( $method ){
-                case 'post':
-                    echo view('inscription_screen', array('validation' => $this->validator));
-                    break;
-                case 'get':
-                    $message = $this->session->getFlashdata('special_message');
-                    echo view('inscription_screen', array('special_message' => $message));
-                    break;
-                default:
-                    die('something is wrong here');
-            }
-            return;
-        }
-
-            $form_name = $this->request->getPost('Name',FILTER_SANITIZE_STRING);
-            $form_email= $this->request->getPost('email',FILTER_SANITIZE_EMAIL);
-            $form_user_name = $this->request->getPost('UserName',FILTER_SANITIZE_STRING);
-            $form_pwd = strtoupper(hash('sha256',$this->request->getPost('UserPwd')));
-        $data = [
-            'full_name'=>$form_name,
-            'user_email'=>$form_email,
-            'user_name'=>$form_user_name,
-            'user_pwd'=>$form_pwd,
-        ];
-	  
-	    $form_manager = new User();
-
-	    $user_details = $form_manager->insert_in_db($data);
-
-        if( is_null($user_details) )
-	    {
-	        $message = "<div class='alert alert-danger' role='alert'>L'inscription n'a pas été éffecutée. Merci de reésayer</div>";
-            echo view('inscription_screen', array('special_message' => $message));
-            return;
-        }
-        else {
-            $message = "<div class='alert alert-success' role='alert'>Votre inscription a bien été pris en compte</div>";
-            echo view('inscription_screen', array('special_message' => $message));
-            return;
-            $this->session->set($data);
-            return redirect()->to(base_url('inscription_screen'));
-        }
-	}
-
     public function forgotten_password()
     {   
          $validation_rules = array(
@@ -249,7 +181,7 @@ class Login extends BaseController
                 $email->setMessage($message);
                 
                 if($email->send()){
-                    $message = "<div class='alert alert-success' role='alert'>Le code pour vous conecter vous à été envoyé par mail. Il est valide pour 10 min</div>";
+                    $message = "<div class='alert alert-success' role='alert'>Le code pour vous connecter vous à été envoyé par mail. Il est valide pour 10 min</div>";
                     echo view('common_forgotten_password', array('special_message' => $message));
                     $user_model->updatetoken($token, $userID['row']['user_id'], $code);
                     return;

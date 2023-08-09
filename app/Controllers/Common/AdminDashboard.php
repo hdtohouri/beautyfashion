@@ -138,22 +138,49 @@ class AdminDashboard extends BaseController
         }
     }
 
-    public function list_user($user_id = null)
+    public function list_user()
     {
         if(!session('logged_in')){
             $message = "<div class='alert alert-danger' role='alert'>Veuillez vous identifier !</div>";
             echo view('login_page', array('special_message' => $message));
         }
-        else{    
+        else{   
+
             $userModel = new User();
             $data['liste_user'] = $userModel->get_list();
-            //$this->session->set('selected_user_id', $user_id); 
-            //$dasactiate_user_account = $userModel->desactivate_user($user_id);
-            //var_dump( $dasactiate_user_account);
-            return view("admin/user_list",  $data);
+            
+            $action = $this->request->getPost('action'); 
+
+            if($action === 'desactivate')
+            {
+                $user_id = $this->request->getPost('user_id');
+                $desactivate = $userModel->desactivate_user($user_id);
+            }
+            elseif($action === 'activate')
+            {
+                $user_id = $this->request->getPost('user_id');
+                $activate = $userModel->activate_user($user_id);
+            }
+
+            elseif($action === 'delete')
+            {
+                $user_id = $this->request->getPost('user_id');
+                $delete = $userModel->delete_user($user_id);
+            }
+            
+            return view("admin/user_list", $data);
         }
     }
     
+    public function desactivate_user()
+    {
+        $userModel = new User();
+        $user_id = $this->request->getPost('user_id');
+        var_dump($user_id);
+        $desactivate = $userModel->desactivate_user($user_id);
+        var_dump($desactivate);
+        return redirect()->to('admin/user_list');
+    }
     public function modify_password()
     {
         if(!session('logged_in')){
@@ -215,7 +242,67 @@ class AdminDashboard extends BaseController
                 echo view('admin/common_modify_password', array('special_message' => $message));
             }
         }
-       
+    }
+
+    public function admin_add_users()
+    {
+        if(!session('logged_in')){
+            $message = "<div class='alert alert-danger' role='alert'>Veuillez vous identifier !</div>";
+            echo view('login_page', array('special_message' => $message));
+        }
+        else
+        {
+            $validation_rules = array(
+                'Username' => [
+                    'label'  => "Veuillez saisir le Username de l'utilisateur",
+                    'rules'  => 'required|min_length[3]'
+                ],
+                'password' => [
+                    'label'  => "Veuillez saisir le Mot de Passe de l'utilisateur",
+                    'rules'  => 'required|min_length[4]|max_length[10]'
+                ]
+            );
+            
+            if( $this->validate($validation_rules) === false )
+            {
+                $method = $this->request->getMethod();
+                switch( $method ){
+                    case 'post':
+                        echo view('admin/add_user', array('validation' => $this->validator));
+                        break;
+                    case 'get':
+                        $message = $this->session->getFlashdata('special_message');
+                        echo view('admin/add_user', array('special_message' => $message));
+                        break;
+                    default:
+                        die('something is wrong here');
+                }
+                return;
+            }
+    
+                $form_name = $this->request->getPost('Username',FILTER_SANITIZE_STRING);
+                $form_pwd = strtoupper(hash('sha256',$this->request->getPost('password')));
+            $data = [
+                'user_name'=>$form_name,
+                'user_pwd'=>$form_pwd,
+            ];
+          
+            $form_manager = new User();
+    
+            $user_details = $form_manager->insert_in_db($data);
+    
+            if( is_null($user_details) )
+            {
+                $message = "<div class='alert alert-danger' role='alert'>L'ajout de l'utilisateur n'a pas été éffecuté. Merci de reésayer</div>";
+                echo view('admin/add_user', array('special_message' => $message));
+                return;
+            }
+            else {
+                $message = "<div class='alert alert-success' role='alert'>L'ajout de l'utilisateur a bien été pris en compte</div>";
+                echo view('admin/add_user', array('special_message' => $message));
+                return;
+            }
+        }
     }
 
 }
