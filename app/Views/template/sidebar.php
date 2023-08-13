@@ -13,6 +13,15 @@
                         class="fas fa-user-cog me-2"></i>Parametre</a>
                 <a href="<?php echo base_url('common/dashboard/compte') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-check-circle me-2"></i>Mon Compte</a>
+                <a class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
+                        data-bs-toggle="collapse" href="#collap2" role="button" aria-expanded="false" aria-controls="collapseExample"><i
+                        class="fas fa-gift me-2 me-2"></i> Articles </a>
+                        <div class="collapse" id="collap2">
+                                <div class="card card-body">
+                                        <a href="<?php echo base_url('common/articles') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
+                                        class="fas fa-users me-2"></i>Liste des Articles</a>
+                                </div>
+                        </div>
                 <a href="<?php echo base_url('common/dashboard/stock') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-cart-arrow-down me-2"></i>Etat Stock </a>
                         <a href="<?php echo base_url('common/dashboard/rapports') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i

@@ -47,12 +47,12 @@ class Articles extends BaseController
                     ],
                 ],
                 'file' => [
-                    'required',
+                    //'required',
                     'uploaded[file]',
                     'mime_in[file,image/jpg,image/jpeg,image/png,image/webp]',
                     'max_size[file,1024]',
                     'errors' => [
-                        'required' => "Veuillez selectionner l'image du produit",
+                        //'required' => "Veuillez selectionner l'image du produit",
                         'uploaded' => "Le format d'image n'est pas pris en charge"
                     ],
                 ],
