@@ -249,4 +249,11 @@ class User extends Model
         $builder->orderBy('id_produit', 'DESC');
         return $builder->get()->getResult();
     }
+
+    function get_articles()
+    {
+        $query = $this->db->table('produits')->selectSum('quantité', 'totalQuantite')->get();
+        $result = $query->getRowArray();
+        return isset($result['totalQuantite']) ? $result['totalQuantite'] : 0;
+    } 
 }

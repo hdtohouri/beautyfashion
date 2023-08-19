@@ -17,8 +17,6 @@ class Articles extends BaseController
 
             $user_list = new User();
             $data['liste_articles'] = $user_list->get_list_articles();
-            //var_dump($data);
-            
             return view("admin/articles_list", $data);
         }
     }

@@ -49,13 +49,6 @@ class Dashboard extends BaseController
         }
         else{
                 $validation_rules = array(
-                    'number' => [
-                        'label'  => 'Numero',
-                        'rules'  => 'permit_empty|exact_length[13]',
-                        'errors' => [
-                            'exact_length' => 'Veuillez respecter le format',
-                        ],
-                    ],
                     'fullname' => [
                         'label'  => 'Nom Complet',
                         'rules'  => 'string|required',
@@ -69,13 +62,6 @@ class Dashboard extends BaseController
                         'rules'  => 'permit_empty|valid_emails',
                         'errors' => [
                             'valid_emails' => 'Veuillez entrer une adresse email valide',
-                        ],
-                    ],
-                    'adress' => [
-                        'label'  => 'Entrer votre Adresse',
-                        'rules'  => 'permit_empty|alpha_space',
-                        'errors' => [
-                            'alpha_space' => 'Merci de vérifier le Nom saisi',
                         ],
                     ],
                 );
@@ -97,15 +83,9 @@ class Dashboard extends BaseController
                 }
                 $userModel = new User();
 
-            $user_number = $this->request->getPost('number',FILTER_SANITIZE_NUMBER_INT);
             $user_email= $this->request->getPost('email',FILTER_SANITIZE_EMAIL);
             $user_fullname = $this->request->getPost('fullname',FILTER_SANITIZE_STRING);
-            $user_adress = $this->request->getPost('adress',FILTER_SANITIZE_STRING);
             $data = [];
-
-            if (!empty($user_number)) {
-                $data['user_number'] = $user_number;
-            }
             
             if (!empty($user_fullname)) {
                 $data['full_name'] = $user_fullname;
@@ -113,10 +93,6 @@ class Dashboard extends BaseController
             
             if (!empty($user_email)) {
                 $data['user_email'] = $user_email;
-            }
-            
-            if (!empty($user_adress)) {
-                $data['user_adress'] = $user_adress;
             }
             
             $updated = $userModel->update_data(session('user_id'), $data);

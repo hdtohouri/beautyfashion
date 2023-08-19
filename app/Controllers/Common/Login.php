@@ -75,7 +75,7 @@ class Login extends BaseController
                     'user_number' =>  $user_details['user_details']['user_number'],
                     'user_adress' =>  $user_details['user_details']['user_adress'],
                     'level' =>  $user_details['user_details']['level'],
-                    'user_status' =>  $user_details['user_details']['user_status']
+                    'user_status' =>  $user_details['user_details']['user_status'],
                 ];
                 
                 $this->session->set($data);
@@ -92,7 +92,7 @@ class Login extends BaseController
                     'user_number' =>  $user_details['user_details']['user_number'],
                     'user_adress' =>  $user_details['user_details']['user_adress'],
                     'level' =>  $user_details['user_details']['level'],
-                    'user_status' =>  $user_details['user_details']['user_status']
+                    'user_status' =>  $user_details['user_details']['user_status'],
                 ];
                 
                 $this->session->set($data);
@@ -109,7 +109,7 @@ class Login extends BaseController
                     'user_number' =>  $user_details['user_details']['user_number'],
                     'user_adress' =>  $user_details['user_details']['user_adress'],
                     'level' =>  $user_details['user_details']['level'],
-                    'user_status' =>  $user_details['user_details']['user_status']
+                    'user_status' =>  $user_details['user_details']['user_status'],
                 ];
                 
                 $this->session->set($data);
@@ -245,7 +245,7 @@ class Login extends BaseController
                         }
                         
                         return;
-                    }
+                    } 
 
                     $code = $this->request->getPost('code');
                     $connexion = $user_model->get_connected_with_code($code);

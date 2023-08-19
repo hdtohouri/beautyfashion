@@ -15,11 +15,11 @@
                         class="fas fa-check-circle me-2"></i>Mon Compte</a>
                 <a class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
                         data-bs-toggle="collapse" href="#collap2" role="button" aria-expanded="false" aria-controls="collapseExample"><i
-                        class="fas fa-gift me-2 me-2"></i> Articles </a>
+                        class="fab fa-shopify me-2 me-2"></i> Articles </a>
                         <div class="collapse" id="collap2">
                                 <div class="card card-body">
                                         <a href="<?php echo base_url('common/articles') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
-                                        class="fas fa-users me-2"></i>Liste des Articles</a>
+                                        class="fas fa-shopping-bag me-2"></i>Liste des Articles</a>
                                 </div>
                         </div>
                 <a href="<?php echo base_url('common/dashboard/stock') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
@@ -58,13 +58,13 @@
                         </div>
                 <a class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
                         data-bs-toggle="collapse" href="#collap2" role="button" aria-expanded="false" aria-controls="collapseExample"><i
-                        class="fas fa-gift me-2 me-2"></i> Articles </a>
+                        class="fab fa-shopify me-2"></i> Articles </a>
                         <div class="collapse" id="collap2">
                                 <div class="card card-body">
                                         <a href="<?php echo base_url('common/articles') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
-                                        class="fas fa-users me-2"></i>Liste des Articles</a>
+                                        class="fas fa-shopping-bag me-2"></i>Liste des Articles</a>
                                         <a href="<?php echo base_url('common/articles/add_articles') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
-                                         class="fas fa-user-plus me-2"></i>Ajouter Article</a>
+                                         class="fas fa-shopping-basket me-2"></i>Ajouter Article</a>
                                 </div>
                         </div>
                 <a class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
@@ -73,9 +73,9 @@
                         <div class="collapse" id="collapse3">
                                 <div class="card card-body">
                                         <a href="<?php echo base_url('common/admindashboard/list_user') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
-                                        class="fas fa-users me-2"></i>Liste des Articles</a>
+                                        class="fas fa-shopping-cart me-2"></i>Liste des Articles</a>
                                         <a href="<?php echo base_url('common/admindashboard/admin_add_users') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
-                                         class="fas fa-user-plus me-2"></i>Ajouter Article</a>
+                                         class="fas fa-shopping-cart me-2"></i>Ajouter Article</a>
                                 </div>
                         </div>
                 <a href="<?php echo base_url('common/admindashboard/list_user') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i

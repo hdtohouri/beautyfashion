@@ -104,9 +104,6 @@ class AdminDashboard extends BaseController
             
             $data = [];
         
-            if (!empty($user_number)) {
-                $data['user_number'] = $user_number;
-            }
             
             if (!empty($user_fullname)) {
                 $data['full_name'] = $user_fullname;
@@ -114,10 +111,6 @@ class AdminDashboard extends BaseController
             
             if (!empty($user_email)) {
                 $data['user_email'] = $user_email;
-            }
-            
-            if (!empty($user_adress)) {
-                $data['user_adress'] = $user_adress;
             }
             
             $updated = $userModel->update_data(session('user_id'), $data);
