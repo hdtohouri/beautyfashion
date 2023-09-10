@@ -47,6 +47,13 @@
                                     echo "<div style='color: #ff0000'>".$validation->getError('fullname')."</div>";
                             } ?>
                         </div>
+                        <div class="mb-4">
+                            <label for="name" class="form-label">Nom D'utilisateur</label>
+                            <input type="text"  class="form-control" name="name" placeholder="Veuillez saisir votre nom d'utilisateur"/>
+                            <?php  if (isset($validation) && $validation->hasError('name')) {
+                                    echo "<div style='color: #ff0000'>".$validation->getError('name')."</div>";
+                            } ?>
+                        </div>
                         <div class="mb-4 form-group">
                             <label for="email" class="form-label">Adresse Email</label>
                             <input type="email" class="form-control form-control-user" name="email" id="email" placeholder="Veuillez saisir votre adresse email"/>

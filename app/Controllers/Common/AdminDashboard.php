@@ -49,18 +49,18 @@ class AdminDashboard extends BaseController
         }
         else{
             $validation_rules = array(
-                'number' => [
-                    'label'  => 'Numero',
-                    'rules'  => 'permit_empty|exact_length[13]',
+                'name' => [
+                    'label'  => "Nom d'utilisateur",
+                    'rules'  => 'permit_empty|alpha',
                     'errors' => [
-                        'exact_length' => 'Veuillez respecter le format',
+                        'alpha' => "Merci de vérifier le nom d'utilisateur",
                     ],
                 ],
                 'fullname' => [
                     'label'  => 'Nom Complet',
-                    'rules'  => 'alpha_space',
+                    'rules'  => 'string',
                     'errors' => [
-                        'alpha_space' => 'Merci de vérifier le Nom',
+                        'string' => 'Merci de vérifier le Nom',
                     ],
                 ],
                 'email' => [
@@ -68,13 +68,6 @@ class AdminDashboard extends BaseController
                     'rules'  => 'permit_empty|valid_emails',
                     'errors' => [
                         'valid_emails' => 'Veuillez entrer une adresse email valide',
-                    ],
-                ],
-                'adress' => [
-                    'label'  => 'Entrer votre Adresse',
-                    'rules'  => 'permit_empty|alpha_space',
-                    'errors' => [
-                        'alpha_space' => 'Merci de vérifier le Nom saisi',
                     ],
                 ],
             );
@@ -97,10 +90,9 @@ class AdminDashboard extends BaseController
             
             $userModel = new User();
 
-            $user_number = $this->request->getPost('number',FILTER_SANITIZE_NUMBER_INT);
+            $user_name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
             $user_email= $this->request->getPost('email',FILTER_SANITIZE_EMAIL);
             $user_fullname = $this->request->getPost('fullname',FILTER_SANITIZE_STRING);
-            $user_adress = $this->request->getPost('adress',FILTER_SANITIZE_STRING);
             
             $data = [];
         
@@ -111,6 +103,9 @@ class AdminDashboard extends BaseController
             
             if (!empty($user_email)) {
                 $data['user_email'] = $user_email;
+            }
+            if (!empty($user_name)) {
+                $data['user_name'] = $user_name;
             }
             
             $updated = $userModel->update_data(session('user_id'), $data);
@@ -248,12 +243,26 @@ class AdminDashboard extends BaseController
             $validation_rules = array(
                 'Username' => [
                     'label'  => "Veuillez saisir le Username de l'utilisateur",
-                    'rules'  => 'required|min_length[3]'
+                    'rules'  => 'required|min_length[3]',
+                    'errors' => [
+                        'required' => 'Veuillez saisir le Username',
+                    ],
+                ],
+                'email' => [
+                    'label'  => 'Email Adresse',
+                    'rules'  => 'valid_emails|required',
+                    'errors' => [
+                        'valid_emails' => 'Veuillez entrer une adresse email valide',
+                        'required' => 'Veuillez saisir le mail',
+                    ],
                 ],
                 'password' => [
                     'label'  => "Veuillez saisir le Mot de Passe de l'utilisateur",
-                    'rules'  => 'required|min_length[4]|max_length[10]'
-                ]
+                    'rules'  => 'required|min_length[4]|max_length[10]',
+                    'errors' => [
+                        'required' => 'Veuillez saisir le mot de passe',
+                    ],
+                ],
             );
             
             if( $this->validate($validation_rules) === false )
@@ -273,6 +282,7 @@ class AdminDashboard extends BaseController
                 return;
             }
     
+                $user_email= $this->request->getPost('email',FILTER_SANITIZE_EMAIL);
                 $form_name = $this->request->getPost('Username',FILTER_SANITIZE_STRING);
                 $form_pwd = strtoupper(hash('sha256',$this->request->getPost('password')));
             $data = [
@@ -280,7 +290,7 @@ class AdminDashboard extends BaseController
                 'user_pwd'=>$form_pwd,
             ];
           
-            $form_manager = new User();
+            $form_manager = new User(); 
     
             $user_details = $form_manager->insert_in_db($data);
     
@@ -293,7 +303,40 @@ class AdminDashboard extends BaseController
             else {
                 $message = "<div class='alert alert-success' role='alert'>L'ajout de l'utilisateur a bien été pris en compte</div>";
                 echo view('admin/add_user', array('special_message' => $message));
-                return;
+
+                $email = \Config\Services::email();
+
+                $fromEmail = getenv('EMAIL_FROM');
+                $fromName = getenv('EMAIL_FROM_NAME');
+                
+                $email->setFrom($fromEmail , $fromName);
+                $email->setTo($user_email);   
+                $token = bin2hex(random_bytes(30));
+                $email->setSubject('Activation de compte');
+                $message = '<html><body>';
+                $message .= '<h2>Activation de compte</h2>';
+                $message .= '<p>Bonjour</p>';
+                $message .= '<p>Votre compte Beautyfashion à été créé avec succès.</p>';
+                $message .= "<p>Veuillez Cliquer sur le bouton ci dessous pour l'activer.</p>"; 
+                $message .= '<a href= "'.base_url().'common/login/reset_password/'.$token.'">ACTIVER MON COMPTE</a>';
+                $message .= "<p>Contactez le service technique de BEAUTY FASHION, si vous n'êtes pas à l'origine de cette demande.</p>";
+                $message .= '</body></html>';
+
+                $email->setMessage($message);
+                
+                if($email->send()){
+                    //$message = "<div class='alert alert-success' role='alert'>MAIL ENVOYE</div>";
+                    //echo view('admin/add_user', array('special_message' => $message));
+                    //$user_model->updatetoken($token, $userID['row']['user_id'], $code);
+                    return;
+                    }
+                else{
+                    //$message = "<div class='alert alert-danger' role='alert'>MAIL NON ENVOYE </div>";
+                    //echo view('admin/add_user', array('special_message' => $message));
+                    return;
+                }
+
+                //return;
             }
         }
     }

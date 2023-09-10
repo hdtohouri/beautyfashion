@@ -62,24 +62,7 @@
                             <p class="text-muted mb-0 text-lowercase"><strong><?php echo session('email_address'); ?></strong></p>
                         </div>
                         </div>
-                        <hr>
-                        <div class="row">
-                        <div class="col-sm-3">
-                            <p class="mb-0">Contact :</p>
-                        </div>
-                        <div class="col-sm-9">
-                            <p class="text-muted mb-0"><strong><?php echo session('user_number'); ?></strong></p>
-                        </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                        <div class="col-sm-3">
-                            <p class="mb-0">Addresse :</p>
-                        </div>
-                        <div class="col-sm-9">
-                            <p class="text-muted mb-0"><strong><?php echo session('user_adress'); ?></strong></p>
-                        </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="col-lg-12">

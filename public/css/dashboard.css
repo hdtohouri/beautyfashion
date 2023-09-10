@@ -3,6 +3,11 @@
   --main-text-color: #009d63;
   --second-text-color: #bbbec5;
   --second-bg-color: #c1efde;
+  --primary: #0d6efd;
+}
+
+.text-primary{
+  color: var(--primary);
 }
 
 .primary-text {

@@ -53,6 +53,13 @@
                                     echo "<div style='color: #ff0000'>".$validation->getError('password')."</div>";
                             } ?>
                         </div>
+                        <div class="mb-4 form-group">
+                            <label for="image" class="form-label">Adresse Email</label>
+                            <input type="email" class="form-control form-control-user" name="email" placeholder="Veuillez saisir votre adresse email"/>
+                            <?php  if (isset($validation) && $validation->hasError('email')) {
+                                    echo "<div style='color: #ff0000'>".$validation->getError('email')."</div>";
+                            } ?>
+                        </div>
                         <input type="submit" class="btn btn-primary btn-user btn-block" value="Ajouter l'ulisateur"/>
                     </form>
                 </div>

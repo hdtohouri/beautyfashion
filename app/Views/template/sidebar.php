@@ -8,14 +8,14 @@
                 <?php if(session('level')==='user'): ?>
             <div class="list-group list-group-flush my-3">
                 <a href="<?php echo base_url('common/dashboard') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                        class="fas fa-tachometer-alt text-primary me-2"></i>Dashboard</a>
                 <a href="<?php echo base_url('common/dashboard/parametre') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-user-cog me-2"></i>Parametre</a>
+                        class="fas fa-user-cog text-primary me-2"></i>Parametre</a>
                 <a href="<?php echo base_url('common/dashboard/compte') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-check-circle me-2"></i>Mon Compte</a>
+                        class="fas fa-check-circle text-primary me-2"></i>Mon Compte</a>
                 <a class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
                         data-bs-toggle="collapse" href="#collap2" role="button" aria-expanded="false" aria-controls="collapseExample"><i
-                        class="fab fa-shopify me-2 me-2"></i> Articles </a>
+                        class="fab fa-shopify text-primary me-2"></i> Articles </a>
                         <div class="collapse" id="collap2">
                                 <div class="card card-body">
                                         <a href="<?php echo base_url('common/articles') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
@@ -23,71 +23,65 @@
                                 </div>
                         </div>
                 <a href="<?php echo base_url('common/dashboard/stock') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-cart-arrow-down me-2"></i>Etat Stock </a>
-                        <a href="<?php echo base_url('common/dashboard/rapports') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-tasks me-2"></i>Rapports </a> 
-                <a href="<?php echo base_url('common/dashboard/produit'); ?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-gift me-2"></i>Produits</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-shopping-cart me-2"></i>Store</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-comment-dots me-2"></i>Rapports</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-map-marker-alt me-2"></i>Rapports</a>
+                        class="fas fa-cart-arrow-down text-primary me-2"></i>Etat Stock </a>
                 <a href="<?php echo base_url('common/logout'); ?>" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                         class="fas fa-power-off me-2"></i>Deconnexion</a>
             </div>
             <?php else: ?>
             <div class="list-group list-group-flush my-3">
                 <a href="<?php echo base_url('common/admindashboard') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                        class="fas fa-tachometer-alt text-primary me-2"></i>Dashboard</a>
                 <a href="<?php echo base_url('common/admindashboard/adminparametre') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-user-cog me-2"></i>Parametre</a>
+                        class="fas fa-user-cog text-primary me-2"></i>Parametre</a>
                 <a href="<?php echo base_url('common/admindashboard/compteadmin') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-check-circle me-2"></i>Mon Compte</a>
-                <a class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
-                        data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i
-                        class="fas fa-users me-2"></i> Utilisateurs </a>
-                        <div class="collapse" id="collapseExample">
-                                <div class="card card-body">
-                                        <a href="<?php echo base_url('common/admindashboard/list_user') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
-                                        class="fas fa-users me-2"></i>Liste des Utilisateurs</a>
-                                        <a href="<?php echo base_url('common/admindashboard/admin_add_users') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
-                                         class="fas fa-user-plus me-2"></i>Ajouter Utilisateur</a>
-                                </div>
+                        class="fas fa-check-circle text-primary me-2"></i>Mon Compte</a>
+                <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed second-text fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <i class="fas fa-users text-primary me-2"></i> Utilisateurs
+                                </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                                <a href="<?php echo base_url('common/admindashboard/list_user') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
+                                        class="fas fa-users me-2"></i>Liste des Utilisateurs</a> <br>
+                                <a href="<?php echo base_url('common/admindashboard/admin_add_users') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
+                                        class="fas fa-user-plus me-2"></i>Ajouter Utilisateur</a>
                         </div>
-                <a class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
-                        data-bs-toggle="collapse" href="#collap2" role="button" aria-expanded="false" aria-controls="collapseExample"><i
-                        class="fab fa-shopify me-2"></i> Articles </a>
-                        <div class="collapse" id="collap2">
-                                <div class="card card-body">
+                        </div>
+                        </div>
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed second-text fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <i class="fab fa-shopify text-primary me-2"></i> Articles
+                                </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
                                         <a href="<?php echo base_url('common/articles') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
-                                        class="fas fa-shopping-bag me-2"></i>Liste des Articles</a>
+                                                class="fas fa-shopping-bag me-2"></i>Liste des Articles</a> <br>
                                         <a href="<?php echo base_url('common/articles/add_articles') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
-                                         class="fas fa-shopping-basket me-2"></i>Ajouter Article</a>
+                                                class="fas fa-shopping-basket me-2"></i>Ajouter Article</a>
                                 </div>
                         </div>
-                <a class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
-                        data-bs-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapseExample"><i
-                        class="fas fa-cart-arrow-down me-2"></i> Etat Stock </a>
-                        <div class="collapse" id="collapse3">
-                                <div class="card card-body">
-                                        <a href="<?php echo base_url('common/admindashboard/list_user') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
-                                        class="fas fa-shopping-cart me-2"></i>Liste des Articles</a>
-                                        <a href="<?php echo base_url('common/admindashboard/admin_add_users') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
-                                         class="fas fa-shopping-cart me-2"></i>Ajouter Article</a>
+                        </div>
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed second-text fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <i class="fas fa-cart-arrow-down text-primary me-2"></i> Etat Stock
+                                </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                        <a href="<?php echo base_url('common/articles') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
+                                                class="fas fa-shopping-bag me-2"></i>Liste des Articles</a> <br>
+                                        <a href="<?php echo base_url('common/articles/add_articles') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
+                                                class="fas fa-shopping-basket me-2"></i>Ajouter Article</a>
                                 </div>
                         </div>
-                <a href="<?php echo base_url('common/admindashboard/list_user') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-paperclip me-2"></i>Rapports </i></a>
-                <a href="<?php echo base_url('common/admindashboard/adminproduit'); ?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-gift me-2"></i>Produits </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-shopping-cart me-2"></i>Store</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-comment-dots me-2"></i>Rapports</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-map-marker-alt me-2"></i>Rapports</a>
+                        </div>
+                </div>
                 <a href="<?php echo base_url('common/logout'); ?>" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                         class="fas fa-power-off me-2"></i>Deconnexion</a>
             </div>

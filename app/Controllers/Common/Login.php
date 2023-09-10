@@ -72,8 +72,6 @@ class Login extends BaseController
                     'full_name' =>  $user_details['user_details']['full_name'],
                     'logged_in' => true,
                     'email_address' =>  $user_details['user_details']['user_email'],
-                    'user_number' =>  $user_details['user_details']['user_number'],
-                    'user_adress' =>  $user_details['user_details']['user_adress'],
                     'level' =>  $user_details['user_details']['level'],
                     'user_status' =>  $user_details['user_details']['user_status'],
                 ];
@@ -89,8 +87,6 @@ class Login extends BaseController
                     'full_name' =>  $user_details['user_details']['full_name'],
                     'logged_in' => true,
                     'email_address' =>  $user_details['user_details']['user_email'],
-                    'user_number' =>  $user_details['user_details']['user_number'],
-                    'user_adress' =>  $user_details['user_details']['user_adress'],
                     'level' =>  $user_details['user_details']['level'],
                     'user_status' =>  $user_details['user_details']['user_status'],
                 ];
@@ -106,8 +102,6 @@ class Login extends BaseController
                     'full_name' =>  $user_details['user_details']['full_name'],
                     'logged_in' => true,
                     'email_address' =>  $user_details['user_details']['user_email'],
-                    'user_number' =>  $user_details['user_details']['user_number'],
-                    'user_adress' =>  $user_details['user_details']['user_adress'],
                     'level' =>  $user_details['user_details']['level'],
                     'user_status' =>  $user_details['user_details']['user_status'],
                 ];
@@ -263,8 +257,6 @@ class Login extends BaseController
                                 'full_name' =>  $connexion['user_details']['full_name'],
                                 'logged_in' => true,
                                 'email_address' =>  $connexion['user_details']['user_email'],
-                                'user_number' =>  $connexion['user_details']['user_number'],
-                                'user_adress' =>  $connexion['user_details']['user_adress'],
                                 'level' =>  $connexion['user_details']['level'],
                                 'user_status' =>  $connexion['user_details']['user_status']
                             ];
@@ -280,8 +272,6 @@ class Login extends BaseController
                                 'full_name' =>  $connexion['user_details']['full_name'],
                                 'logged_in' => true,
                                 'email_address' =>  $connexion['user_details']['user_email'],
-                                'user_number' =>  $connexion['user_details']['user_number'],
-                                'user_adress' =>  $connexion['user_details']['user_adress'],
                                 'level' =>  $connexion['user_details']['level'],
                                 'user_status' =>  $connexion['user_details']['user_status']
                             ];
@@ -297,8 +287,6 @@ class Login extends BaseController
                                 'full_name' =>  $connexion['user_details']['full_name'],
                                 'logged_in' => true,
                                 'email_address' =>  $connexion['user_details']['user_email'],
-                                'user_number' =>  $connexion['user_details']['user_number'],
-                                'user_adress' =>  $connexion['user_details']['user_adress'],
                                 'level' =>  $connexion['user_details']['level'],
                                 'user_status' =>  $connexion['user_details']['user_status']
                             ];

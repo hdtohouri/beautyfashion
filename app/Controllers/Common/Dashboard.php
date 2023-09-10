@@ -51,10 +51,16 @@ class Dashboard extends BaseController
                 $validation_rules = array(
                     'fullname' => [
                         'label'  => 'Nom Complet',
-                        'rules'  => 'string|required',
+                        'rules'  => 'string',
                         'errors' => [
                             'string' => 'Merci de vérifier le Nom',
-                            'required' => 'Ce champ est obligatoire',
+                        ],
+                    ],
+                    'name' => [
+                        'label'  => "Nom d'utilisateur",
+                        'rules'  => 'permit_empty|alpha',
+                        'errors' => [
+                            'alpha' => "Merci de vérifier le nom d'utilisateur",
                         ],
                     ],
                     'email' => [
@@ -83,6 +89,7 @@ class Dashboard extends BaseController
                 }
                 $userModel = new User();
 
+            $user_name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
             $user_email= $this->request->getPost('email',FILTER_SANITIZE_EMAIL);
             $user_fullname = $this->request->getPost('fullname',FILTER_SANITIZE_STRING);
             $data = [];
@@ -93,6 +100,10 @@ class Dashboard extends BaseController
             
             if (!empty($user_email)) {
                 $data['user_email'] = $user_email;
+            }
+
+            if (!empty($user_name)) {
+                $data['user_name'] = $user_name;
             }
             
             $updated = $userModel->update_data(session('user_id'), $data);
