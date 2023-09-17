@@ -243,17 +243,20 @@ class AdminDashboard extends BaseController
             $validation_rules = array(
                 'Username' => [
                     'label'  => "Veuillez saisir le Username de l'utilisateur",
-                    'rules'  => 'required|min_length[3]',
+                    'rules'  => 'required|min_length[3]|is_unique[users.user_name]',
                     'errors' => [
                         'required' => 'Veuillez saisir le Username',
+                        'is_unique'=>"Un utilisateur avec cet nom d'utilisateur existe deja",
+                        'min_length'=>"Le nom d'utilisateur doit contenir plus de 3 lettres",
                     ],
                 ],
                 'email' => [
                     'label'  => 'Email Adresse',
-                    'rules'  => 'valid_emails|required',
+                    'rules'  => 'valid_emails|required|is_unique[users.user_email]',
                     'errors' => [
                         'valid_emails' => 'Veuillez entrer une adresse email valide',
                         'required' => 'Veuillez saisir le mail',
+                        'is_unique' => 'Un utilisateur avec cette adresse mail existe deja',
                     ],
                 ],
                 'password' => [
@@ -288,6 +291,7 @@ class AdminDashboard extends BaseController
             $data = [
                 'user_name'=>$form_name,
                 'user_pwd'=>$form_pwd,
+                'user_email'=>$user_email,
             ];
           
             $form_manager = new User(); 
@@ -318,7 +322,7 @@ class AdminDashboard extends BaseController
                 $message .= '<p>Bonjour</p>';
                 $message .= '<p>Votre compte Beautyfashion à été créé avec succès.</p>';
                 $message .= "<p>Veuillez Cliquer sur le bouton ci dessous pour l'activer.</p>"; 
-                $message .= '<a href= "'.base_url().'common/login/reset_password/'.$token.'">ACTIVER MON COMPTE</a>';
+                $message .= '<a href= "'.base_url().'common/login/activation/'.$token.'">ACTIVER MON COMPTE</a>';
                 $message .= "<p>Contactez le service technique de BEAUTY FASHION, si vous n'êtes pas à l'origine de cette demande.</p>";
                 $message .= '</body></html>';
 
@@ -338,6 +342,17 @@ class AdminDashboard extends BaseController
 
                 //return;
             }
+        }
+    }
+
+    public function commandes()
+    {
+        if(!session('logged_in')){
+            $message = "<div class='alert alert-danger' role='alert'>Veuillez vous identifier !</div>";
+            echo view('login_page', array('special_message' => $message));
+        }
+        else{
+            return view("admin/nouvelle_commande");
         }
     }
 

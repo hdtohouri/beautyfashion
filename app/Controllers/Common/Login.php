@@ -309,4 +309,8 @@ class Login extends BaseController
         }
     }
 
+    public function activation($token)
+    {
+        
+    }
 }

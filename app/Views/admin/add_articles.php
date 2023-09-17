@@ -46,21 +46,28 @@
                             </select>
                         </div>                     
                         <div class="mb-4">
-                            <label for="Nom_article" class="form-label">Nom Article</label>
+                            <label for="Nom_article" class="form-label">Nom de l'Article</label>
                             <input type="text"  class="form-control" name="Nom_article" placeholder="Veuillez saisir le nom de l'article"/>
                             <?php  if (isset($validation) && $validation->hasError('Nom_article')) {
                                     echo "<div style='color: #ff0000'>".$validation->getError('Nom_article')."</div>";
                             } ?>
                         </div>
                         <div class="mb-4">
-                            <label for="file" class="form-label">Image Article</label>
+                            <label for="file" class="form-label">Image de l'Article</label>
                             <input type="file"  class="form-control" name="file" placeholder="Veuillez selectionner l'image"/>
                             <?php  if (isset($validation) && $validation->hasError('file')) {
                                     echo "<div style='color: #ff0000'>".$validation->getError('file')."</div>";
                             } ?>
                         </div>
                         <div class="mb-4">
-                            <label for="quantité_article" class="form-label">Quantité Article</label>
+                            <label for="prix_unitaire" class="form-label">Prix Unitaire de l'Article</label>
+                            <input type="number"  class="form-control" name="prix_unitaire" placeholder="Veuillez saisir le prix unitaire de l'article"/>
+                            <?php  if (isset($validation) && $validation->hasError('prix_unitaire')) {
+                                    echo "<div style='color: #ff0000'>".$validation->getError('prix_unitaire')."</div>";
+                            } ?>
+                        </div>
+                        <div class="mb-4">
+                            <label for="quantité_article" class="form-label">Quantité de l'Article</label>
                             <input type="number"  class="form-control" name="quantité_article" placeholder="Veuillez saisir la quantité de l'article"/>
                             <?php  if (isset($validation) && $validation->hasError('quantité_article')) {
                                     echo "<div style='color: #ff0000'>".$validation->getError('quantité_article')."</div>";

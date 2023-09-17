@@ -37,7 +37,7 @@ class Articles extends BaseController
                     ],
                 ],*/
                 'Nom_article' => [
-                    'label'  => "Veuillez saisir le Username de l'utilisateur",
+                    'label'  => "Veuillez saisir le nom de l'article",
                     'rules'  => 'required|min_length[3]',
                     'errors' => [
                         'required' => "Veuillez saisir le Nom de l'article",
@@ -45,12 +45,10 @@ class Articles extends BaseController
                     ],
                 ],
                 'file' => [
-                    //'required',
                     'uploaded[file]',
                     'mime_in[file,image/jpg,image/jpeg,image/png,image/webp]',
                     'max_size[file,1024]',
                     'errors' => [
-                        //'required' => "Veuillez selectionner l'image du produit",
                         'uploaded' => "Le format d'image n'est pas pris en charge"
                     ],
                 ],
@@ -61,7 +59,15 @@ class Articles extends BaseController
                         'required' => "Veuillez saisir la quantité",
                         'numeric' => "Veuillez saisir la quantité",
                     ],
-                ]
+                ],
+                'prix_unitaire' => [
+                    'label'  => "Veuillez saisir le prix unitaire de l'article",
+                    'rules'  => 'required|numeric',
+                    'errors' => [
+                        'required' => "Veuillez saisir le prix unitaire de l'article",
+                        'numeric' => "Veuillez saisir la quantité",
+                    ],
+                ],
                 
             );
             
@@ -84,9 +90,10 @@ class Articles extends BaseController
     
                 $article_name = $this->request->getPost('Nom_article',FILTER_SANITIZE_STRING);
                 $article_image = $this->request->getFile('file');
-                $article_quantity = $this->request->getPost('quantité_article',FILTER_SANITIZE_STRING);
-                //$article_category = $this->request->getPost('category',FILTER_SANITIZE_STRING);
-
+                $article_quantity = $this->request->getPost('quantité_article',FILTER_SANITIZE_NUMBER_INT);
+                $article_price = $this->request->getPost('prix_unitaire',FILTER_SANITIZE_NUMBER_FLOAT);
+                $article_category = $this->request->getPost('category',FILTER_SANITIZE_STRING);
+                
                 $newName = $article_image->getRandomName();
                 $article_image->move('./uploads', $newName);
                 $url = base_url().'uploads'.'/'.$newName;
@@ -95,6 +102,7 @@ class Articles extends BaseController
                 'nom_produit'=>$article_name,
                 'image_produit'=>$url,
                 'quantité'=>$article_quantity,
+                'prix_unitaire_article'=>$article_price,
                 //'id_category'=>$article_category,
             ];
           
