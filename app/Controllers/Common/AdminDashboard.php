@@ -350,7 +350,80 @@ class AdminDashboard extends BaseController
             echo view('login_page', array('special_message' => $message));
         }
         else{
-            return view("admin/nouvelle_commande");
+
+            $validation_rules = array(
+                'category_article' => [
+                    'label'  => "Veuillez saisir le Username de l'utilisateur",
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required' => 'Veuillez saisir le Username',
+                    ],
+                ],/*
+                'prix' => [
+                    'label'  => "Prix de l'article",
+                    'rules'  => 'required|numeric',
+                    'errors' => [
+                        'numeric' => 'le prix ne peut contenir que des chiffres',
+                        'required' => 'Veuillez saisir le prix',
+                    ],
+                ],
+                'Quantité' => [
+                    'label'  => "Veuillez saisir la quantité",
+                    'rules'  => 'required|numeric',
+                    'errors' => [
+                        'required' => 'Veuillez saisir la quantité',
+                        'numeric' => 'le quantité ne peut contenir que des chiffres',
+                    ],
+                ],*/
+                'date' => [
+                    'label'  => "Date de la commande",
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required' => 'Veuillez sélectionner la date',
+                    ],
+                ],/*
+                'Total' => [
+                    'label'  => "Montant Total",
+                    'rules'  => 'required|numeric',
+                    'errors' => [
+                        'required' => 'Veuillez saisir le mot de passe',
+                        'numeric' => 'le total ne peut contenir que des chiffres',
+                    ],
+                ],*/
+            );
+
+            $user_list = new User();
+            $data['liste_articles'] = $user_list->get_list_articles();
+            
+            if( $this->validate($validation_rules) === false )
+            {
+                $method = $this->request->getMethod();
+                switch( $method ){
+                    case 'post':
+                        echo view('admin/nouvelle_commande', $data, ['validation' => $this->validator]);
+                        break;
+                    case 'get':
+                        $message = $this->session->getFlashdata('special_message');
+                        echo view('admin/nouvelle_commande', $data, ['special_message' => $message]);
+                        break;
+                    default:
+                        die('something is wrong here');
+                }
+                return;
+            }
+            
+            $article_name= $this->request->getPost('category_article',FILTER_SANITIZE_STRING);
+            var_dump($article_name);
+            //$article_prix = $this->request->getPost('prix',FILTER_SANITIZE_NUMBER_INT);
+            //var_dump($article_prix);
+            //$article_quantité= $this->request->getPost('Quantité',FILTER_SANITIZE_NUMBER_INT);
+            //var_dump($article_quantité);
+            $commande_date = $this->request->getPost('date');
+            var_dump($commande_date);
+            //$total= $this->request->getPost('Total',FILTER_SANITIZE_NUMBER_INT);
+            //var_dump($total);
+
+            //return view("admin/nouvelle_commande",$data);
         }
     }
 

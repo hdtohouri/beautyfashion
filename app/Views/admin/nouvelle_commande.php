@@ -44,31 +44,38 @@
                             <label for="category_article" class="form-label"></label>
                             <select class="form-select" name="category_article" id="category_article">
                                 <option selected> ------ Veuillez Selectionner l'article ------ </option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <?php foreach ($liste_articles as $article) : ?>
+                                    <option value="<?= $article->id_produit ?>" data-price="<?= $article->prix_unitaire ?>"><?= $article->nom_produit ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div> 
                          
                         <div class="mb-4">
                             <label for="prix" class="form-label">Prix de l'article</label>
-                            <input type="numeric"  class="form-control" name="prix" placeholder="Prix unitaire de l'article"/>
+                            <input type="numeric"  class="form-control" disabled="true" name="prix" placeholder="Prix unitaire de l'article"/>
                             <?php  if (isset($validation) && $validation->hasError('prix')) {
                                     echo "<div style='color: #ff0000'>".$validation->getError('prix')."</div>";
                             } ?>
                         </div>
                         <div class="mb-4">
                             <label for="Quantité" class="form-label">Quantité </label>
-                            <input type="numeric"  class="form-control" name="Quantité" placeholder="Veuillez saisir la quantité"/>
+                            <input type="number" min="1" class="form-control" name="Quantité" placeholder="Veuillez saisir la quantité"/>
                             <?php  if (isset($validation) && $validation->hasError('Quantité')) {
                                     echo "<div style='color: #ff0000'>".$validation->getError('Quantité')."</div>";
                             } ?>
                         </div>
                         <div class="mb-4 form-group">
                             <label for="Total" class="form-label">Montant Total</label>
-                            <input type="numeric" class="form-control form-control-user" name="Total" placeholder="Total à payer"/>
+                            <input type="number" min="1" class="form-control form-control-user" disabled="true" name="Total" placeholder="Total à payer"/>
                             <?php  if (isset($validation) && $validation->hasError('Total')) {
                                     echo "<div style='color: #ff0000'>".$validation->getError('Total')."</div>";
+                            } ?>
+                        </div>
+                        <div class="mb-4 form-group">
+                            <label for="date" class="form-label">Date de la commande</label>
+                            <input type="date" name="date" class="form-control form-control-user" />
+                            <?php  if (isset($validation) && $validation->hasError('date')) {
+                                    echo "<div style='color: #ff0000'>".$validation->getError('date')."</div>";
                             } ?>
                         </div>
                         <input type="submit" class="btn btn-primary btn-user btn-block" value="Creer la commande"/>
@@ -91,6 +98,24 @@
             el.classList.toggle("toggled");
         };
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#category_article').change(function () {
+                var selectedOption = $(this).find(':selected');
+                var price = selectedOption.data('price');
+                $('input[name="prix"]').val(price);
+            });
+
+            $('input[name="Quantité"]').change(function () {
+                var quantity = $(this).val();
+                var price = $('input[name="prix"]').val();
+                var total = quantity * price;
+                $('input[name="Total"]').val(total);
+            });
+        });
+    </script>
+
 </body>
 
 </html>

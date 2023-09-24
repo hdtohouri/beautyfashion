@@ -33,6 +33,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Image Article</th>
                         <th scope="col">Nom Article</th>
+                        <th scope="col">Prix Unitaire</th>
                         <th scope="col">Quantité en Stock</th>
                         <?php if(session('level')== "admin"): ?>
                         <th scope="col">Actions disponibles</th>
@@ -45,6 +46,7 @@
                             <td><?= ++$i ?></td>
                             <td><img src="<?= $articles->image_produit ?>" height="100" width="100" alt="image du produit"></td>
                             <td><?= strtoupper($articles->nom_produit) ?></td>
+                            <td><?= $articles->prix_unitaire ?></td>
                             <td><?= $articles->quantité ?></td>
                             <?php if(session('level')== "admin"): ?>
                             <td>  

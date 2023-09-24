@@ -317,7 +317,7 @@ class User extends Model
     public function get_list_articles()
     {
         $builder = $this->db->table('produits');
-        $builder->select('id_produit, nom_produit, quantité, image_produit'); 
+        $builder->select('id_produit, nom_produit, quantité, image_produit, prix_unitaire'); 
         $builder->orderBy('id_produit', 'DESC');
         return $builder->get()->getResult();
     }
