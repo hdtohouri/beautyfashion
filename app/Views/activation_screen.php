@@ -37,15 +37,14 @@
                                         <h1 class="h4 text-gray-900 mb-4">Activation du compte </h1>
                                         <div class="alert alert-danger"><?= $error_message ?></div>
                                     <?php else: ?>
+                                        <?php if( isset($special_message))
+                                        echo "<h6>$special_message</h6>";
+                                        ?>
                                         <div class="col-lg-6 d-none d-lg-block bg-login-image"> <img src="<?php echo base_url('img/validation.gif'); ?>" alt=""></div>
-                                        <h5 class="alert alert-success">Votre compte a été activé</h5>
                                     <?php endif; ?>
                                         <?php
                                         if( isset($validation) )
                                             echo "<div style='color: #ff0000'>".$validation->listErrors()."</div>";
-
-                                        if( isset($special_message) )
-                                            echo $special_message;
                                         ?>
                                     </div>
                                     

@@ -45,13 +45,13 @@
                             <td><?= strtoupper($user['user_name']) ?></td>
                             <td><?= $user['user_status'] ?></td>
                             <td> 
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal1" data-userid="<?=$user['user_id'] ?>">
+                                <button type="button" class="btn user-action-button" data-bs-toggle="modal" data-bs-target="#Modal1" data-userid="<?=$user['user_id'] ?>">
                                     <i class="fas fa-user-slash me-2" data-toggle="tooltip" title="Desactiver ce compte"></i>
                                 </button> 
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal2" data-userid="<?= $user['user_id'] ?>">
+                                <button type="button" class="btn user-action-button" data-bs-toggle="modal" data-bs-target="#Modal2" data-userid="<?= $user['user_id'] ?>">
                                     <i class="fas fa-user me-2" data-toggle="tooltip" title="Activer ce compte"></i> 
                                 </button>
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal3" data-userid="<?= $user['user_id'] ?>">
+                                <button type="button" class="btn user-action-button" data-bs-toggle="modal" data-bs-target="#Modal3" data-userid="<?= $user['user_id'] ?>">
                                     <i class="fas fa-user-times" data-toggle="tooltip" title="Supprimer ce compte"></i> 
                                 </button> 
                                  
@@ -149,6 +149,7 @@
     </div>
 
     <script src="<?php echo base_url('bootstrap/js/bootstrap.min.js'); ?>"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -157,6 +158,20 @@
             el.classList.toggle("toggled");
         };
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.user-action-button').click(function() {
+                var userId = $(this).data('userid'); // Récupère l'ID de l'utilisateur depuis le bouton cliqué
+
+                // Met à jour la valeur de l'ID dans les modals
+                $('#Modal1 input[name="user_id"]').val(userId);
+                $('#Modal2 input[name="user_id"]').val(userId);
+                $('#Modal3 input[name="user_id"]').val(userId);
+            });
+        });
+    </script>
+
 </body>
 
 </html>

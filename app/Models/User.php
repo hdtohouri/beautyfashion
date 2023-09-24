@@ -151,6 +151,7 @@ class User extends Model
     {
         $builder = $this->db->table('users');
         $builder->where('activation_token', $token);
+        $builder->where('user_status', 'INACTIVE');
         $builder->update(['user_status' => 'ACTIVE']);
         if($this->db->affectedRows()==1)
         {
@@ -173,6 +174,18 @@ class User extends Model
         }
         else{
             return false;
+        }
+    }
+
+    public function verify_activation_statut($token){
+        $builder = $this->db->table('users');
+        $builder->select('user_id,full_name,user_status');
+        $builder->where('activation_token', $token);
+        $result = $builder->get();
+        $row = $result->getRowArray();
+        if(count($result->getResultArray())== 1)
+        {
+            return $row['user_status']; 
         }
     }
 
@@ -237,7 +250,7 @@ class User extends Model
     {
         $builder = $this->db->table('users');
         $builder->where('user_id', $user_id);
-        $builder->where(['user_status', 'ACTIVE']);
+        $builder->where('user_status', 'ACTIVE'); 
         $builder->update(['user_status' => 'DESACTIVE']);
         if($this->db->affectedRows()==1)
         {
@@ -252,7 +265,7 @@ class User extends Model
     {
         $builder = $this->db->table('users');
         $builder->where('user_id', $user_id);
-        $builder->where(['user_status', 'DESACTIVE']);
+        $builder->where('user_status', 'DESACTIVE'); 
         $builder->update(['user_status' => 'ACTIVE']);
         if($this->db->affectedRows()==1)
         {
@@ -315,4 +328,5 @@ class User extends Model
         $result = $query->getRowArray();
         return isset($result['totalQuantite']) ? $result['totalQuantite'] : 0;
     } 
+
 }

@@ -47,13 +47,15 @@
                             <td><?= strtoupper($articles->nom_produit) ?></td>
                             <td><?= $articles->quantité ?></td>
                             <?php if(session('level')== "admin"): ?>
-                            <td> 
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal1" data-userid="<?=$articles->id_produit ?>">
-                                    <i class="far fa-edit me-2" data-toggle="tooltip" title="Editer cet article"></i>
-                                </button> 
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal2" data-userid="<?= $articles->id_produit ?>">
-                                    <i class="fas fa-trash" data-toggle="tooltip" title="Supprimer cet article"></i> 
-                                </button>
+                            <td>  
+                            <button type="button" class="btn user-action-button edit-article-button" data-bs-toggle="modal" data-bs-target="#Modal1" data-articleid="<?=$articles->id_produit ?>">
+                                <i class="far fa-edit me-2" data-toggle="tooltip" title="Editer cet article"></i>
+                            </button> 
+
+                            <button type="button" class="btn user-action-button delete-article-button" data-bs-toggle="modal" data-bs-target="#Modal2" data-articleid="<?= $articles->id_produit ?>">
+                                <i class="fas fa-trash" data-toggle="tooltip" title="Supprimer cet article"></i> 
+                            </button>
+
                                  
                             </td>
                             <?php endif; ?> 
@@ -62,7 +64,7 @@
                        
                     </tbody>
                 </table>
-                    <!-- Modal 1 Desactiver ce compte-->
+                    <!-- Modal 1 Modifier ce produit-->
                     <div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -86,9 +88,16 @@
                                                 echo "<div style='color: #ff0000'>".$validation->getError('file')."</div>";
                                         } ?>
                                     </div>
+                                    <div class="mb-4">
+                                        <label for="prix_unitaire" class="form-label">Prix unitaire</label>
+                                        <input type="number"  class="form-control" name="prix_unitaire" placeholder="Veuillez saisir le prix unitaire de l'article"/>
+                                        <?php  if (isset($validation) && $validation->hasError('prix_unitaire')) {
+                                                echo "<div style='color: #ff0000'>".$validation->getError('prix_unitaire')."</div>";
+                                        } ?>
+                                    </div>
                                     <div class="mb-4 form-group">
                                         <input type="hidden" name="id_produit" value="<?= $articles->id_produit ?>">
-                                        <input type="hidden" name="action" value="desactivate">
+                                        <input type="hidden" name="action" value="editer">
                                     </div>
                                     <input type="submit" class="btn btn-primary btn-user btn-block" value="Editer l'Article"/>
                                 </form>
@@ -101,7 +110,7 @@
                         </div>
                     </div>
 
-                    <!-- Modal 2 Supprimer ce compte-->
+                    <!-- Modal 2 Supprimer ce produit-->
                     <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -117,7 +126,7 @@
                                 <form class="user" method="post" action="<?php echo base_url('common/articles'); ?>">
                                     <div class="mb-4 form-group">
                                         <input type="hidden" name="id_produit" value="<?= $articles->id_produit ?>">
-                                        <input type="hidden" name="action" value="activate">
+                                        <input type="hidden" name="action" value="supprimer">
                                     </div>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                                     <input type="submit" class="btn btn-primary btn-user btn-block" value="Supprimer"/>
@@ -127,8 +136,6 @@
                         </div>
                     </div>
                     
-                    
-
                     </div>
                 </div>
 
@@ -141,6 +148,7 @@
     </div>
 
     <script src="<?php echo base_url('bootstrap/js/bootstrap.min.js'); ?>"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -148,6 +156,21 @@
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Pour le modal d'édition
+            $('.edit-article-button').click(function() {
+                var articleId = $(this).data('articleid');
+                $('#Modal1 input[name="id_produit"]').val(articleId);
+            });
+
+            // Pour le modal de suppression
+            $('.delete-article-button').click(function() {
+                var articleId = $(this).data('articleid');
+                $('#Modal2 input[name="id_produit"]').val(articleId);
+            });
+        });
     </script>
 </body>
 

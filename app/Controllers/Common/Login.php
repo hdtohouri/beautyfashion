@@ -291,28 +291,33 @@ class Login extends BaseController
         if(!empty($token)){
             if($update_time = $user_model->verifyActivation_token($token)){
                 if($expiration= $user_model->checkActivationTime($update_time)){
-
-                        $method = $this->request->getMethod();
-                        
-                        switch ($method) {
-                            case 'post':
-                                echo view('activation_screen', [
-                                    'token' => $token,
-                                    'validation' => $this->validator
-                                ]);
-                                break;
-                            case 'get':
-                                $message = $this->session->getFlashdata('special_message');
-                                echo view('activation_screen', [
-                                    'token' => $token,
-                                    'special_message' => $message
-                                ]);
-                                break;
-                            default:
-                                die('something is wrong here');
+    
+                        if ($user_model->validate_AccountActivation($token)) {
+                        // La mise à jour du statut a réussi
+                        $message = "<div class='alert alert-success' role='alert'>Votre compte a été activé avec succès.</div>";
+                        return view('activation_screen', [
+                            'token' => $token,
+                            'special_message' => $message
+                        ]);
+                    }else {
+                        // La mise à jour du statut a échoué
+                        $user_statut = $user_model->verify_activation_statut($token);
+                        if($user_statut === 'ACTIVE')
+                        {
+                            $message = "<div class='alert alert-danger' role='alert'>Ce compte à déja été activé.</div>";
+                            return view('activation_screen', [
+                                'token' => $token,
+                                'error_message' => $message
+                            ]);
+                        }else if($user_statut === 'INACTIVE' || $user_statut === 'DESACTIVE'){
+                            $message = "<div class='alert alert-danger' role='alert'>Une erreur est survenue lors de l'activation du compte.</div>";
+                            return view('activation_screen', [
+                                'token' => $token,
+                                'error_message' => $message
+                            ]);
                         }
-                        
-                        return;
+        
+                    }
                    
                 }else{
                     $message = "<div class='alert alert-danger' role='alert'>Ce lien d'activation a expiré </div>";

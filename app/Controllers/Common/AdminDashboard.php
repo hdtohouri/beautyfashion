@@ -137,7 +137,7 @@ class AdminDashboard extends BaseController
             $userModel = new User();
             $data['liste_user'] = $userModel->get_list();
             
-            $action = $this->request->getPost('action'); 
+            $action = $this->request->getPost('action');
 
             if($action === 'desactivate')
             {
@@ -164,9 +164,7 @@ class AdminDashboard extends BaseController
     {
         $userModel = new User();
         $user_id = $this->request->getPost('user_id');
-        var_dump($user_id);
         $desactivate = $userModel->desactivate_user($user_id);
-        var_dump($desactivate);
         return redirect()->to('admin/user_list');
     }
     public function modify_password()
