@@ -331,7 +331,7 @@ class AdminDashboard extends BaseController
                 if($email->send()){
                     //$message = "<div class='alert alert-success' role='alert'>MAIL ENVOYE</div>";
                     //echo view('admin/add_user', array('special_message' => $message));
-                    //$user_model->updatetoken($token, $userID['row']['user_id'], $code);
+                    $form_manager->account_activation($token, $user_email);
                     return;
                     }
                 else{

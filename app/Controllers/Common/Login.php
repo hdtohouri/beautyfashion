@@ -64,6 +64,11 @@ class Login extends BaseController
                 $message ="<div class='alert alert-danger' role='alert' >Votre Compte a été désactivé. Veuillez contacter la présidence de Beauty Fashion pour sa réactivation!</div>";
                 echo view('login_page', array('special_message' => $message));
             }
+            else if($user_details['user_details']['user_status'] === 'INACTIVE')
+            {   
+                $message ="<div class='alert alert-danger' role='alert' >Votre Compte est inactive. Veuillez contacter la présidence de Beauty Fashion pour son activation!</div>";
+                echo view('login_page', array('special_message' => $message));
+            }
             else if($user_details['user_details']['level'] === 'user')
             {
                 $data = [
@@ -93,21 +98,6 @@ class Login extends BaseController
                 
                 $this->session->set($data);
                 return redirect()->to(base_url('common/admindashboard'));
-            }
-            else if($user_details['user_details']['level'] === 'admin')
-            {
-                $data = [
-                    'user_id' =>  $user_details['user_details']['user_id'],
-                    'user_name' =>  $user_details['user_details']['user_name'],
-                    'full_name' =>  $user_details['user_details']['full_name'],
-                    'logged_in' => true,
-                    'email_address' =>  $user_details['user_details']['user_email'],
-                    'level' =>  $user_details['user_details']['level'],
-                    'user_status' =>  $user_details['user_details']['user_status'],
-                ];
-                
-                $this->session->set($data);
-                return redirect()->to(base_url('common/superadmindashboard'));
             }
         }
 
@@ -186,7 +176,7 @@ class Login extends BaseController
                     return;
                 }
             }else { 
-                $message ="<div class='alert alert-danger' role='alert' >Votre Compte a été désactivé. Veuillez contacter la présidence de Beauty Fashion pour sa réactivation!</div>";
+                $message ="<div class='alert alert-danger' role='alert' >Votre Compte n'est pas active. Veuillez contacter la présidence de Beauty Fashion pour sa réactivation!</div>";
                 echo view('login_page', array('special_message' => $message));
                 return;
             }
@@ -279,21 +269,6 @@ class Login extends BaseController
                             $this->session->set($data);
                             return redirect()->to(base_url('common/admindashboard'));
                         }
-                        elseif($connexion['user_details']['level'] === 'superadmin')
-                        {
-                            $data = [
-                                'user_id' =>  $connexion['user_details']['user_id'],
-                                'user_name' =>  $connexion['user_details']['user_name'],
-                                'full_name' =>  $connexion['user_details']['full_name'],
-                                'logged_in' => true,
-                                'email_address' =>  $connexion['user_details']['user_email'],
-                                'level' =>  $connexion['user_details']['level'],
-                                'user_status' =>  $connexion['user_details']['user_status']
-                            ];
-                        
-                            $this->session->set($data);
-                            return redirect()->to(base_url('common/admindashboard'));
-                        }
                     }
                 }else{
                     $message = "<div class='alert alert-danger' role='alert'>Le lien de réinitialisation du mot de passe a expiré </div>";
@@ -309,8 +284,47 @@ class Login extends BaseController
         }
     }
 
-    public function activation($token)
+    public function activation($token = null)
     {
+        $user_model = new User();
         
+        if(!empty($token)){
+            if($update_time = $user_model->verifyActivation_token($token)){
+                if($expiration= $user_model->checkActivationTime($update_time)){
+
+                        $method = $this->request->getMethod();
+                        
+                        switch ($method) {
+                            case 'post':
+                                echo view('activation_screen', [
+                                    'token' => $token,
+                                    'validation' => $this->validator
+                                ]);
+                                break;
+                            case 'get':
+                                $message = $this->session->getFlashdata('special_message');
+                                echo view('activation_screen', [
+                                    'token' => $token,
+                                    'special_message' => $message
+                                ]);
+                                break;
+                            default:
+                                die('something is wrong here');
+                        }
+                        
+                        return;
+                   
+                }else{
+                    $message = "<div class='alert alert-danger' role='alert'>Ce lien d'activation a expiré </div>";
+                    return view('activation_screen', array('error_message' => $message));
+                }
+            }else{
+                $message = "<div class='alert alert-danger' role='alert'>Une erreur est survenue, Utilisateur non reconnu</div>";
+                return view('activation_screen', array('error_message' => $message));
+            }
+        }else{
+            $message = "<div class='alert alert-danger' role='alert'>L'accès à cette page n'est authorisé</div>";
+            return view('activation_screen', array('error_message' => $message));
+        }
     }
 }

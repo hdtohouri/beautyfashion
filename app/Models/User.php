@@ -104,6 +104,63 @@ class User extends Model
         }
     }
 
+    public function account_activation($activation_token,$email){
+        $builder = $this ->db->table('users');
+        $builder->where('user_email', $email);
+        $now = new Time('now');
+        $formattedDate = $now->format('Y-m-d H:i:s');
+        $builder->update(['activation_token'=> $activation_token,'activation_time'=> $formattedDate ]);
+        if($this->db->affectedRows()==1)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function verifyActivation_token($token){
+        $builder = $this->db->table('users');
+        $builder->select('user_id, user_name, activation_time');
+        $builder->where('activation_token', $token);
+        $result = $builder -> get();
+        $row = $result->getRowArray();
+        if(count($result->getResultArray())== 1)
+        {
+            return $row['activation_time']; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function checkActivationTime($time){
+        $update_time = strtotime($time);
+        $current_time = time();
+        $time_diff = (($current_time - $update_time) / 60);
+        if ($time_diff < 20){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function validate_AccountActivation($token)
+    {
+        $builder = $this->db->table('users');
+        $builder->where('activation_token', $token);
+        $builder->update(['user_status' => 'ACTIVE']);
+        if($this->db->affectedRows()==1)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public function updatetoken($token,$id,$code){
         $builder = $this ->db->table('users');
         $builder->where('user_id', $id);
@@ -180,6 +237,7 @@ class User extends Model
     {
         $builder = $this->db->table('users');
         $builder->where('user_id', $user_id);
+        $builder->where(['user_status', 'ACTIVE']);
         $builder->update(['user_status' => 'DESACTIVE']);
         if($this->db->affectedRows()==1)
         {
@@ -194,6 +252,7 @@ class User extends Model
     {
         $builder = $this->db->table('users');
         $builder->where('user_id', $user_id);
+        $builder->where(['user_status', 'DESACTIVE']);
         $builder->update(['user_status' => 'ACTIVE']);
         if($this->db->affectedRows()==1)
         {
