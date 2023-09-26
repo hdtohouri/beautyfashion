@@ -312,8 +312,55 @@ class User extends Model
         else{
             return false;
         }
+    }
+
+    public function add_commandes($data)
+    {
+        $builder = $this->builder();
+        $builder = $this->db->table('orders');
+        $builder->insert($data);
+        if($this->db->affectedRows()==1)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
     }				
     
+    public function article_quantity($id)
+    {
+        $builder = $this->db->table('produits');
+        $builder->select('id_produit, nom_produit, quantité');
+        $builder->where('id_produit', $id);
+        $result = $builder -> get();
+        $row = $result->getRowArray();
+        if(count($result->getResultArray())== 1)
+        {
+            return $row['quantité']; 
+        }
+        else
+        {
+            return false;
+        } 
+
+    }
+
+    public function update_quantity($id,$quantity)
+    {
+        $builder = $this->db->table('produits');
+        $builder->select('id_produit, nom_produit, quantité');
+        $builder->where('id_produit', $id);
+        $builder->update(['quantité' => $quantity]);
+        if($this->db->affectedRows()==1)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public function get_list_articles()
     {
         $builder = $this->db->table('produits');

@@ -165,7 +165,7 @@
                 var userId = $(this).data('userid'); // Récupère l'ID de l'utilisateur depuis le bouton cliqué
 
                 // Met à jour la valeur de l'ID dans les modals
-                $('#Modal1 input[name="user_id"]').val(userId);
+                $('#Modal1 input[name="user_id"]').val( );
                 $('#Modal2 input[name="user_id"]').val(userId);
                 $('#Modal3 input[name="user_id"]').val(userId);
             });

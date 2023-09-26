@@ -114,13 +114,6 @@ class Articles extends BaseController
         }
         else{   
             $validation_rules = array(
-                /*'category_article' => [
-                    'label'  => "Veuillez Selectionner la categorie",
-                    'rules'  => 'required',
-                    'errors' => [
-                        'required' => "Veuillez selectionner une categorie",
-                    ],
-                ],*/
                 'Nom_article' => [
                     'label'  => "Veuillez saisir le nom de l'article",
                     'rules'  => 'required|min_length[3]',
@@ -187,8 +180,7 @@ class Articles extends BaseController
                 'nom_produit'=>$article_name,
                 'image_produit'=>$url,
                 'quantité'=>$article_quantity,
-                'prix_unitaire_article'=>$article_price,
-                //'id_category'=>$article_category,
+                'prix_unitaire'=>$article_price,
             ];
           
             $form_manager = new User();

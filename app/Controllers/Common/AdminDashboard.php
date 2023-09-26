@@ -358,7 +358,7 @@ class AdminDashboard extends BaseController
                     'errors' => [
                         'required' => 'Veuillez saisir le Username',
                     ],
-                ],/*
+                ],
                 'prix' => [
                     'label'  => "Prix de l'article",
                     'rules'  => 'required|numeric',
@@ -368,28 +368,27 @@ class AdminDashboard extends BaseController
                     ],
                 ],
                 'Quantité' => [
-                    'label'  => "Veuillez saisir la quantité",
+                    'label'  => "Veuillez saisir la quantité",   
                     'rules'  => 'required|numeric',
                     'errors' => [
                         'required' => 'Veuillez saisir la quantité',
                         'numeric' => 'le quantité ne peut contenir que des chiffres',
                     ],
-                ],*/
+                ],
                 'date' => [
                     'label'  => "Date de la commande",
                     'rules'  => 'required',
                     'errors' => [
                         'required' => 'Veuillez sélectionner la date',
                     ],
-                ],/*
+                ],
                 'Total' => [
                     'label'  => "Montant Total",
-                    'rules'  => 'required|numeric',
+                    'rules'  => 'required',
                     'errors' => [
-                        'required' => 'Veuillez saisir le mot de passe',
-                        'numeric' => 'le total ne peut contenir que des chiffres',
+                        'required' => 'Veuillez saisir le total',
                     ],
-                ],*/
+                ],
             );
 
             $user_list = new User();
@@ -400,29 +399,54 @@ class AdminDashboard extends BaseController
                 $method = $this->request->getMethod();
                 switch( $method ){
                     case 'post':
-                        echo view('admin/nouvelle_commande', $data, ['validation' => $this->validator]);
+                        echo view('admin/nouvelle_commande',$data, array('validation' => $this->validator));
                         break;
                     case 'get':
                         $message = $this->session->getFlashdata('special_message');
-                        echo view('admin/nouvelle_commande', $data, ['special_message' => $message]);
+                        echo view('admin/nouvelle_commande',$data, array('special_message' => $message));
                         break;
                     default:
                         die('something is wrong here');
                 }
                 return;
             }
+
+            $manager = new User();
             
             $article_name= $this->request->getPost('category_article',FILTER_SANITIZE_STRING);
-            var_dump($article_name);
-            //$article_prix = $this->request->getPost('prix',FILTER_SANITIZE_NUMBER_INT);
-            //var_dump($article_prix);
-            //$article_quantité= $this->request->getPost('Quantité',FILTER_SANITIZE_NUMBER_INT);
-            //var_dump($article_quantité);
+            $article_prix = $this->request->getPost('prix',FILTER_SANITIZE_NUMBER_INT);
+            $article_quantité= $this->request->getPost('Quantité',FILTER_SANITIZE_NUMBER_INT);
             $commande_date = $this->request->getPost('date');
-            var_dump($commande_date);
-            //$total= $this->request->getPost('Total',FILTER_SANITIZE_NUMBER_INT);
-            //var_dump($total);
+            $total= $this->request->getPost('Total',FILTER_SANITIZE_NUMBER_INT);
+            $details = [
+                'id_produit'=>$article_name,
+                //'image_produit'=>$article_prix,
+                'quantité_article'=>$article_quantité,
+                'date_achat'=>$commande_date,
+                'total'=>$total,
+            ];
 
+            $order_details = $manager->add_commandes($details);
+        
+            if ($order_details) 
+            { 
+                $message = "<div class='alert alert-success' role='alert'>La Commande à bien été ajoutée.</div>";
+                echo view('admin/nouvelle_commande', $data, ['special_message' => $message]);
+            }
+
+            else
+            {
+                $message = "<div class='alert alert-danger' role='alert'>Une erreur est survenue. Merci de reésayer</div>";
+                echo view('admin/nouvelle_commande', $data, ['special_message' => $message]);
+                return;
+            }
+
+            if($article_name)
+            {
+                $stock_quantity = $manager->article_quantity($article_name);
+                $new_stock_quantity = $stock_quantity - $article_quantité;
+                $update_stock_quantity = $manager->update_quantity($article_name, $new_stock_quantity);
+            }
             //return view("admin/nouvelle_commande",$data);
         }
     }

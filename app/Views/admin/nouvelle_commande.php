@@ -45,14 +45,14 @@
                             <select class="form-select" name="category_article" id="category_article">
                                 <option selected> ------ Veuillez Selectionner l'article ------ </option>
                                 <?php foreach ($liste_articles as $article) : ?>
-                                    <option value="<?= $article->id_produit ?>" data-price="<?= $article->prix_unitaire ?>"><?= $article->nom_produit ?></option>
+                                    <option value="<?= $article->id_produit ?>" data-price="<?= $article->prix_unitaire ?>"><?= $article->nom_produit?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div> 
                          
                         <div class="mb-4">
                             <label for="prix" class="form-label">Prix de l'article</label>
-                            <input type="numeric"  class="form-control" disabled="true" name="prix" placeholder="Prix unitaire de l'article"/>
+                            <input type=" number"  class="form-control" name="prix" placeholder="Prix unitaire de l'article" readonly/>
                             <?php  if (isset($validation) && $validation->hasError('prix')) {
                                     echo "<div style='color: #ff0000'>".$validation->getError('prix')."</div>";
                             } ?>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="mb-4 form-group">
                             <label for="Total" class="form-label">Montant Total</label>
-                            <input type="number" min="1" class="form-control form-control-user" disabled="true" name="Total" placeholder="Total à payer"/>
+                            <input type="number" min="1" class="form-control form-control-user" name="Total" placeholder="Total à payer" readonly/>
                             <?php  if (isset($validation) && $validation->hasError('Total')) {
                                     echo "<div style='color: #ff0000'>".$validation->getError('Total')."</div>";
                             } ?>
