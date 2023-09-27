@@ -4,6 +4,7 @@ namespace App\Controllers\Common;
 
 use App\Controllers\BaseController;
 use App\Models\User;
+use App\Models\Article;
 
 class Articles extends BaseController
 {
@@ -15,26 +16,24 @@ class Articles extends BaseController
         }
         else{   
 
-            $user_list = new User();
+            $user_list = new Article();
             $data['liste_articles'] = $user_list->get_list_articles();
 
             $action = $this->request->getPost('action');
-            var_dump($action );
+            
             if($action === 'editer')
             {
-                //$user_id = $this->request->getPost('user_id');
-                //$desactivate = $userModel->desactivate_user($user_id);
-
                 $validation_rules = array(
                     'Nom_article' => [
                         'label'  => "Veuillez saisir le nom de l'article",
-                        'rules'  => 'required|min_length[3]',
+                        'rules'  => 'permit_empty|min_length[3]',
                         'errors' => [
-                            'required' => "Veuillez saisir le Nom de l'article",
                             'min_length' => "Le code doit contenir plus de 3 charateres"
                         ],
                     ],
                     'file' => [
+                        'permit_empty',
+                        'is_image[file]',
                         'uploaded[file]',
                         'mime_in[file,image/jpg,image/jpeg,image/png,image/webp]',
                         'max_size[file,1024]',
@@ -49,6 +48,14 @@ class Articles extends BaseController
                             'numeric' => "Veuillez saisir la quantité",
                         ],
                     ],
+                    'quantité_article' => [
+                        'label'  => "Veuillez saisir la quantité de l'article",
+                        'rules'  => 'required|numeric',
+                        'errors' => [
+                            'required' => "Veuillez saisir la quantité",
+                            'numeric' => "Veuillez saisir la quantité",
+                        ],
+                    ],
                     
                 );
 
@@ -57,50 +64,72 @@ class Articles extends BaseController
                     $method = $this->request->getMethod();
                     switch( $method ){
                         case 'post':
-                            echo view('admin/articles_list', array('validation' => $this->validator));
+                            echo view('admin/articles_list',$data, array('validation' => $this->validator));
                             break;
                         case 'get':
                             $message = $this->session->getFlashdata('special_message');
-                            echo view('admin/articles_list', array('special_message' => $message));
+                            echo view('admin/articles_list',$data, array('special_message' => $message));
                             break;
                         default:
                             die('something is wrong here');
                     }
-                    return;
+    
                 }
-                
-                $userModel = new User();
+
+                $articleModel = new Article();
 
                 $article_name = $this->request->getPost('Nom_article',FILTER_SANITIZE_STRING);
+                $article_price = $this->request->getPost('prix_unitaire',FILTER_SANITIZE_NUMBER_INT);
+                $article_quantity = $this->request->getPost('quantité_article',FILTER_SANITIZE_NUMBER_INT);
                 $article_image = $this->request->getFile('file');
-                $article_price = $this->request->getPost('prix_unitaire',FILTER_SANITIZE_NUMBER_FLOAT);
+                var_dump($article_image);
+                $product_id = $this->request->getPost('id_produit',FILTER_SANITIZE_NUMBER_INT);
                 
-                $newName = $article_image->getRandomName();
-                $article_image->move('./uploads', $newName);
-                $url = base_url().'uploads'.'/'.$newName;
-                
-                $data = [];
-            
+                $array = [];
+
+                if($article_image->isValid()){
+                    $newName = $article_image->getRandomName();
+                    $article_image->move('./uploads', $newName);
+                    $url = base_url().'uploads'.'/'.$newName;
+                    $array['image_produit'] = $url;
+                }
                 
                 if (!empty($article_name)) {
-                    $data['nom_produit'] = $article_name;
+                    $array['nom_produit'] = $article_name;
                 }
                 
-                if (!empty($article_image)) {
-                    $data['image_produit'] = $url;
-                }
                 if (!empty($article_price)) {
-                    $data['prix_unitaire'] = $article_price;
+                    $array['prix_unitaire'] = $article_price;
                 }
-                
+                if (!empty($article_quantity)) {
+                    $stock_quantity = $articleModel->article_quantity($product_id);
+                    $new_stock_quantity = $stock_quantity + $article_quantity;
+                    $array['quantité'] = $new_stock_quantity;
+                }
+        
+                $articles_details = $articleModel->update_articles_data($product_id, $array);
+        
+                /*if( is_null($articles_details) )
+                {
+                    $message = "<div class='alert alert-danger' role='alert'>La mise à jour n'à pas été éffecuté. Merci de reésayer</div>";
+                    echo view('admin/articles_list',$data, array('special_message' => $message));
+                    return;
+                }
+                else {
+                    $message = "<div class='alert alert-success' role='alert'>Mise éffecuté.</div>";
+                    echo view('admin/articles_list',$data, array('special_message' => $message));
+                    return;
+                }*/
                 //$updated = $userModel->update_data(session('user_id'), $data);
         
             }
 
             elseif($action === 'supprimer')
             {
-                $user_id = $this->request->getPost('user_id');
-                $delete = $userModel->delete_user($user_id);
+                $articleModel = new Article();
+
+                $product_id = $this->request->getPost('id_produit',FILTER_SANITIZE_NUMBER_INT);
+                $delete_product = $articleModel->delete_article($product_id);
             }
             return view("admin/articles_list", $data);
         }

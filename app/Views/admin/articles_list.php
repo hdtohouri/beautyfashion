@@ -24,6 +24,13 @@
         <?php echo view('template/sidebar.php');?>
         <!-- /#sidebar-wrapper -->
         <?php echo view('template/container.php');?>
+        <?php
+
+            if( isset($special_message) )
+            echo $special_message;
+        ?>
+        <?php endif; ?>   
+        <br>
                 <div class="row my-5">
                     <h3 class="fs-4 mb-3">Liste des Articles En Stock</h3>
                     <div class="col">
@@ -75,16 +82,16 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" action="<?php echo base_url('common/articles'); ?>">
+                                <form method="post" action="<?php echo base_url('common/articles'); ?>" enctype="multipart/form-data">
                                     <div class="mb-4">
                                         <label for="Nom_article" class="form-label">Nom Article</label>
-                                        <input type="text"  class="form-control" name="Nom_article" placeholder="<?=$articles->nom_produit ?>"/>
+                                        <input type="text"  class="form-control" name="Nom_article" placeholder="<?=$articles->id_produit ?>"/>
                                         <?php  if (isset($validation) && $validation->hasError('Nom_article')) {
                                                 echo "<div style='color: #ff0000'>".$validation->getError('Nom_article')."</div>";
                                         } ?>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="file" class="form-label">Image Article</label>
+                                        <label for="file" class="form-label">Image de l'Article</label>
                                         <input type="file"  class="form-control" name="file" placeholder="Veuillez selectionner l'image"/>
                                         <?php  if (isset($validation) && $validation->hasError('file')) {
                                                 echo "<div style='color: #ff0000'>".$validation->getError('file')."</div>";
@@ -92,9 +99,16 @@
                                     </div>
                                     <div class="mb-4">
                                         <label for="prix_unitaire" class="form-label">Prix unitaire</label>
-                                        <input type="number"  class="form-control" name="prix_unitaire" placeholder="Veuillez saisir le prix unitaire de l'article"/>
+                                        <input type="number"  class="form-control" min="1" name="prix_unitaire" placeholder="Veuillez saisir le prix unitaire de l'article"/>
                                         <?php  if (isset($validation) && $validation->hasError('prix_unitaire')) {
                                                 echo "<div style='color: #ff0000'>".$validation->getError('prix_unitaire')."</div>";
+                                        } ?>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="quantité_article" class="form-label">Quantité de l'Article</label>
+                                        <input type="number" min="1" class="form-control" name="quantité_article" placeholder="Veuillez saisir la quantité de l'article"/>
+                                        <?php  if (isset($validation) && $validation->hasError('quantité_article')) {
+                                                echo "<div style='color: #ff0000'>".$validation->getError('quantité_article')."</div>";
                                         } ?>
                                     </div>
                                     <div class="mb-4 form-group">
@@ -143,9 +157,7 @@
 
             </div>
         </div>
-    </div>
-    <?php else: ?>                    
-    <?php endif; ?>   
+    </div>                
     <!-- /#page-content-wrapper -->
     </div>
 

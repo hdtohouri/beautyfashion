@@ -154,7 +154,9 @@
                                         <a href="<?php echo base_url('common/articles') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
                                                 class="fas fa-shopping-bag me-2"></i>Liste des Articles</a> <br>
                                         <a href="<?php echo base_url('common/articles/add_articles') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
-                                                class="fas fa-shopping-basket me-2"></i>Ajouter Article</a>
+                                                class="fas fa-shopping-basket me-2"></i>Ajouter Article</a> <br>
+                                        <a href="<?php echo base_url('common/articles/add_articles') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
+                                                class="fas fa-sort-amount-up-alt me-2"></i>Transactions</a>
                                 </div>
                         </div>
                         </div>

@@ -4,6 +4,7 @@ namespace App\Controllers\Common;
 
 use App\Controllers\BaseController;
 use App\Models\User;
+use App\Models\Article;
 
 class AdminDashboard extends BaseController
 {
@@ -391,7 +392,7 @@ class AdminDashboard extends BaseController
                 ],
             );
 
-            $user_list = new User();
+            $user_list = new Article();
             $data['liste_articles'] = $user_list->get_list_articles();
             
             if( $this->validate($validation_rules) === false )
@@ -411,42 +412,51 @@ class AdminDashboard extends BaseController
                 return;
             }
 
-            $manager = new User();
+            $manager = new Article();
             
-            $article_name= $this->request->getPost('category_article',FILTER_SANITIZE_STRING);
+            $article_id= $this->request->getPost('category_article',FILTER_SANITIZE_STRING);
             $article_prix = $this->request->getPost('prix',FILTER_SANITIZE_NUMBER_INT);
             $article_quantité= $this->request->getPost('Quantité',FILTER_SANITIZE_NUMBER_INT);
             $commande_date = $this->request->getPost('date');
             $total= $this->request->getPost('Total',FILTER_SANITIZE_NUMBER_INT);
-            $details = [
-                'id_produit'=>$article_name,
-                //'image_produit'=>$article_prix,
-                'quantité_article'=>$article_quantité,
-                'date_achat'=>$commande_date,
-                'total'=>$total,
-            ];
+            $quantity_in_stock = $manager->article_quantity($article_id);
 
-            $order_details = $manager->add_commandes($details);
-        
-            if ($order_details) 
-            { 
-                $message = "<div class='alert alert-success' role='alert'>La Commande à bien été ajoutée.</div>";
-                echo view('admin/nouvelle_commande', $data, ['special_message' => $message]);
-            }
+            if($quantity_in_stock >= $article_quantité){
 
-            else
-            {
-                $message = "<div class='alert alert-danger' role='alert'>Une erreur est survenue. Merci de reésayer</div>";
-                echo view('admin/nouvelle_commande', $data, ['special_message' => $message]);
-                return;
-            }
+                $details = [
+                    'id_produit'=>$article_id,
+                    //'prix_unitaire'=>$article_prix,
+                    'quantité_article'=>$article_quantité,
+                    'date_achat'=>$commande_date,
+                    'total'=>$total,
+                ];
+    
+                $order_details = $manager->add_commandes($details);
 
-            if($article_name)
-            {
-                $stock_quantity = $manager->article_quantity($article_name);
-                $new_stock_quantity = $stock_quantity - $article_quantité;
-                $update_stock_quantity = $manager->update_quantity($article_name, $new_stock_quantity);
-            }
+                if ($order_details) 
+                { 
+                    //Update stock quantity 
+                    $stock_quantity = $manager->article_quantity($article_id);
+                    $new_stock_quantity = $stock_quantity - $article_quantité;
+                    $update_stock_quantity = $manager->update_quantity($article_id, $new_stock_quantity);
+
+                    $message = "<div class='alert alert-success' role='alert'>La Commande à bien été ajoutée.</div>";
+                    echo view('admin/nouvelle_commande', $data, ['special_message' => $message]);
+                }
+
+                else
+                {
+                    $message = "<div class='alert alert-danger' role='alert'>Une erreur est survenue. Merci de reésayer</div>";
+                    echo view('admin/nouvelle_commande', $data, ['special_message' => $message]);
+                    return;
+                }
+
+            }else{
+                    $message = "<div class='alert alert-danger' role='alert'>La Quantité d'article en stock n'est pas suffisante pour valider la commande</div>";
+                    echo view('admin/nouvelle_commande', $data, ['special_message' => $message]);
+                    return;
+                }
+
             //return view("admin/nouvelle_commande",$data);
         }
     }
