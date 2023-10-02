@@ -44,7 +44,7 @@
                             <label for="category_article" class="form-label"></label>
                             <select class="form-select" name="category_article" id="category_article">
                                 <option selected> ------ Veuillez Selectionner l'article ------ </option>
-                                <?php foreach ($liste_articles as $article) : ?>
+                               <?php foreach ($liste_articles as $article) : ?>
                                     <option value="<?= $article->id_produit ?>" data-price="<?= $article->prix_unitaire ?>"><?= $article->nom_produit?></option>
                                 <?php endforeach; ?>
                             </select>
@@ -52,7 +52,7 @@
                          
                         <div class="mb-4">
                             <label for="prix" class="form-label">Prix de l'article</label>
-                            <input type=" number"  class="form-control" name="prix" placeholder="Prix unitaire de l'article" readonly/>
+                            <input type="number" min="1" class="form-control" name="prix" placeholder="Prix unitaire de l'article" />
                             <?php  if (isset($validation) && $validation->hasError('prix')) {
                                     echo "<div style='color: #ff0000'>".$validation->getError('prix')."</div>";
                             } ?>

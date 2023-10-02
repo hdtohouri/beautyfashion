@@ -37,83 +37,21 @@
                                 <tr>
                                     <th scope="col" width="50">#</th>
                                     <th scope="col">Produit</th>
+                                    <th scope="col">Quantité</th>
                                     <th scope="col">Prix</th>
                                     <th scope="col">Date</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $i=0; foreach($commandes_liste as $commandes): ?>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Television</td>
-                                    <td>Jonny</td>
-                                    <td>$1200</td>
+                                    <td><?= ++$i ?></td>
+                                    <td><?= strtoupper($commandes->nom_produit) ?></td>
+                                    <td><?= $commandes->quantité_article ?></td> 
+                                    <td><?= $commandes->total ?></td> 
+                                    <td><?= date('d-m-Y H:i', strtotime($commandes->update_at))   ?> </td> 
                                 </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Laptop</td>
-                                    <td>Kenny</td>
-                                    <td>$1200</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Cell Phone</td>
-                                    <td>Jenny</td>
-                                    <td>$1200</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Fridge</td>
-                                    <td>Killy</td>
-                                    <td>$1200</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>Books</td>
-                                    <td>Filly</td>
-                                    <td>$1200</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>Gold</td>
-                                    <td>Bumbo</td>
-                                    <td>$1200</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">7</th>
-                                    <td>Pen</td>
-                                    <td>Bilbo</td>
-                                    <td>$1200</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">8</th>
-                                    <td>Notebook</td>
-                                    <td>Frodo</td>
-                                    <td>$36</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">9</th>
-                                    <td>Dress</td>
-                                    <td>Kimo</td>
-                                    <td>$255</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">10</th>
-                                    <td>Paint</td>
-                                    <td>Zico</td>
-                                    <td>$434</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">11</th>
-                                    <td>Carpet</td>
-                                    <td>Jeco</td>
-                                    <td>$1236</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">12</th>
-                                    <td>Food</td>
-                                    <td>Haso</td>
-                                    <td>$422</td>
-                                </tr>
+                                <?php endforeach; ?>              
                             </tbody>
                         </table>
                     </div>

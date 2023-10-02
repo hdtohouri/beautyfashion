@@ -56,4 +56,9 @@ abstract class BaseController extends Controller
         // E.g.: $this->session = \Config\Services::session();
         $this->session = \Config\Services::session();
     }
+
+    protected function display_view($view_to_be_displayed)
+    {
+        echo view($view_to_be_displayed, $this->view_data);
+    }
 }

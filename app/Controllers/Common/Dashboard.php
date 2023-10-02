@@ -4,6 +4,7 @@ namespace App\Controllers\Common;
 
 use App\Controllers\BaseController;
 use App\Models\User;
+use App\Models\Article;
 
 class Dashboard extends BaseController 
 {
@@ -14,7 +15,9 @@ class Dashboard extends BaseController
             echo view('login_page', array('special_message' => $message));
         }
         else{
-            return view("dashboard");
+            $articles = new Article();
+            $data['commandes_liste'] = $articles->get_commandes_liste();
+            return view("dashboard",$data);
         }
         
     }

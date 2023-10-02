@@ -82,7 +82,6 @@ class Articles extends BaseController
                 $article_price = $this->request->getPost('prix_unitaire',FILTER_SANITIZE_NUMBER_INT);
                 $article_quantity = $this->request->getPost('quantité_article',FILTER_SANITIZE_NUMBER_INT);
                 $article_image = $this->request->getFile('file');
-                var_dump($article_image);
                 $product_id = $this->request->getPost('id_produit',FILTER_SANITIZE_NUMBER_INT);
                 
                 $array = [];
@@ -103,7 +102,7 @@ class Articles extends BaseController
                 }
                 if (!empty($article_quantity)) {
                     $stock_quantity = $articleModel->article_quantity($product_id);
-                    $new_stock_quantity = $stock_quantity + $article_quantity;
+                    (int)$new_stock_quantity = (int)$stock_quantity + (int)$article_quantity;
                     $array['quantité'] = $new_stock_quantity;
                 }
         

@@ -132,9 +132,18 @@ class Article extends Model
 
     function get_articles()
     {
-        $query = $this->db->table('produits')->selectSum('quantité', 'totalQuantite')->get();
-        $result = $query->getRowArray();
+        $builder = $this->db->table('produits')->selectSum('quantité', 'totalQuantite')->get();
+        $result = $builder->getRowArray();
         return isset($result['totalQuantite']) ? $result['totalQuantite'] : 0;
+    } 
+
+    function get_commandes_liste()
+    {
+        $builder = $this->db->table('orders');
+        $builder->select('orders.id_produit, orders.update_at, orders.quantité_article, orders.total, produits.nom_produit');
+        $builder->join('produits', 'produits.id_produit  = orders.id_produit', 'left');
+        $builder->orderBy('orders.id', 'DESC');
+        return $builder->get()->getResult();
     } 
 
 }

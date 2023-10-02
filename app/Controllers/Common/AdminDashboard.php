@@ -15,7 +15,12 @@ class AdminDashboard extends BaseController
             echo view('login_page', array('special_message' => $message));
         }
         else{
-            return view("admin/admin_dashboard");
+            $articles = new Article();
+            $data['commandes_liste'] = $articles->get_commandes_liste();
+            //var_dump($quantity);
+            //$data['quantiteArticles'] = $articles->get_articles();
+            //var_dump($data);
+            return view("admin/admin_dashboard",$data);
         }
         
     }
@@ -160,14 +165,7 @@ class AdminDashboard extends BaseController
             return view("admin/user_list", $data);
         }
     }
-    
-    public function desactivate_user()
-    {
-        $userModel = new User();
-        $user_id = $this->request->getPost('user_id');
-        $desactivate = $userModel->desactivate_user($user_id);
-        return redirect()->to('admin/user_list');
-    }
+     
     public function modify_password()
     {
         if(!session('logged_in')){
@@ -357,7 +355,7 @@ class AdminDashboard extends BaseController
                     'label'  => "Veuillez saisir le Username de l'utilisateur",
                     'rules'  => 'required',
                     'errors' => [
-                        'required' => 'Veuillez saisir le Username',
+                        'required' => "Veuillez saisir le nom de l'article",
                     ],
                 ],
                 'prix' => [
@@ -400,15 +398,16 @@ class AdminDashboard extends BaseController
                 $method = $this->request->getMethod();
                 switch( $method ){
                     case 'post':
-                        echo view('admin/nouvelle_commande',$data, array('validation' => $this->validator));
+                        $this->view_data['validation'] = $this->validator;
                         break;
                     case 'get':
-                        $message = $this->session->getFlashdata('special_message');
-                        echo view('admin/nouvelle_commande',$data, array('special_message' => $message));
+                        $this->view_data['special_message'] = $this->session->getFlashdata('special_message');
                         break;
                     default:
                         die('something is wrong here');
                 }
+
+                echo view('admin/nouvelle_commande',$data);
                 return;
             }
 
@@ -420,7 +419,7 @@ class AdminDashboard extends BaseController
             $commande_date = $this->request->getPost('date');
             $total= $this->request->getPost('Total',FILTER_SANITIZE_NUMBER_INT);
             $quantity_in_stock = $manager->article_quantity($article_id);
-
+            
             if($quantity_in_stock >= $article_quantité){
 
                 $details = [
@@ -430,7 +429,7 @@ class AdminDashboard extends BaseController
                     'date_achat'=>$commande_date,
                     'total'=>$total,
                 ];
-    
+                
                 $order_details = $manager->add_commandes($details);
 
                 if ($order_details) 
@@ -441,19 +440,19 @@ class AdminDashboard extends BaseController
                     $update_stock_quantity = $manager->update_quantity($article_id, $new_stock_quantity);
 
                     $message = "<div class='alert alert-success' role='alert'>La Commande à bien été ajoutée.</div>";
-                    echo view('admin/nouvelle_commande', $data, ['special_message' => $message]);
+                    echo view('admin/nouvelle_commande',$data, array('special_message' => $message));
                 }
 
                 else
                 {
                     $message = "<div class='alert alert-danger' role='alert'>Une erreur est survenue. Merci de reésayer</div>";
-                    echo view('admin/nouvelle_commande', $data, ['special_message' => $message]);
+                    echo view('admin/nouvelle_commande',$data , array('special_message' => $message));
                     return;
                 }
 
             }else{
                     $message = "<div class='alert alert-danger' role='alert'>La Quantité d'article en stock n'est pas suffisante pour valider la commande</div>";
-                    echo view('admin/nouvelle_commande', $data, ['special_message' => $message]);
+                    echo view('admin/nouvelle_commande',$data, array('special_message' => $message));
                     return;
                 }
 
