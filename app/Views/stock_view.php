@@ -24,8 +24,7 @@
         <?php echo view('template/sidebar.php');?>
         <!-- /#sidebar-wrapper -->
         <?php echo view('template/container.php');?>
-                
-    <?php else: ?>                    
+                    
     <?php endif; ?>   
     <!-- /#page-content-wrapper -->
     

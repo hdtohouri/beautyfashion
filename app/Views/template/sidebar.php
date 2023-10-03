@@ -13,17 +13,6 @@
                         class="fas fa-user-cog text-primary me-2"></i>Parametre</a>
                 <a href="<?php echo base_url('common/dashboard/compte') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-check-circle text-primary me-2"></i>Mon Compte</a>
-                <a class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
-                        data-bs-toggle="collapse" href="#collap2" role="button" aria-expanded="false" aria-controls="collapseExample"><i
-                        class="fab fa-shopify text-primary me-2"></i> Articles </a>
-                        <div class="collapse" id="collap2">
-                                <div class="card card-body">
-                                        <a href="<?php echo base_url('common/articles') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
-                                        class="fas fa-shopping-bag me-2"></i>Liste des Articles</a>
-                                </div>
-                        </div>
-                <a href="<?php echo base_url('common/dashboard/stock') ;?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-cart-arrow-down text-primary me-2"></i>Etat Stock </a>
                 <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTwo">
@@ -34,9 +23,9 @@
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                         <a href="<?php echo base_url('common/articles') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
-                                                class="fas fa-shopping-bag me-2"></i>Liste des Articles</a> <br>
+                                                class="fas fa-gifts me-2"></i>Liste des Articles</a> <br>
                                         <a href="<?php echo base_url('common/articles/add_articles') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
-                                                class="fas fa-shopping-basket me-2"></i>Ajouter Article</a>
+                                                class="fas fa-shopping-bag me-2"></i>Ajouter Article</a>
                                 </div>
                         </div>
                         </div>
@@ -48,10 +37,10 @@
                         </h2>
                         <div id="collapsefour" class="accordion-collapse collapse" aria-labelledby="headingfour" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                        <a href="<?php echo base_url('common/articles') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
-                                                class="fas fa-shopping-bag me-2"></i>Nouvelle Commande</a> <br>
+                                        <a href="<?php echo base_url('common/admindashboard/commandes') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
+                                                class="fas fa-shipping-fast me-2"></i>Nouvelle Commande</a> <br>
                                         <a href="<?php echo base_url('common/articles/add_articles') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
-                                                class="fas fa-shopping-basket me-2"></i>Liste des Commandes</a>
+                                                class="fas fa-truck me-2"></i>Liste des Commandes</a>
                                 </div>
                         </div>
                         </div>
@@ -66,7 +55,9 @@
                                         <a href="<?php echo base_url('common/articles') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
                                                 class="fas fa-shopping-bag me-2"></i>Liste des Articles</a> <br>
                                         <a href="<?php echo base_url('common/articles/add_articles') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
-                                                class="fas fa-shopping-basket me-2"></i>Ajouter Article</a>
+                                                class="fas fa-shopping-basket me-2"></i>Ajouter Article</a> <br>
+                                        <a href="<?php echo base_url('common/articles/add_articles') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
+                                                class="fas fa-sort-amount-up-alt me-2"></i>Transactions</a>
                                 </div>
                         </div>
                         </div>

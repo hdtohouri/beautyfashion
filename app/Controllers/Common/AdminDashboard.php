@@ -261,6 +261,8 @@ class AdminDashboard extends BaseController
                     'rules'  => 'required|min_length[4]|max_length[10]',
                     'errors' => [
                         'required' => 'Veuillez saisir le mot de passe',
+                        'min_length' => 'Le mot de passe doit minimum  3 caracteres',
+                        'max_length' => 'Le mot de passe doit maximum  10 caracteres',
                     ],
                 ],
             );
