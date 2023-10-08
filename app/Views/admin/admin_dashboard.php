@@ -20,12 +20,13 @@
 
 <body>
     <?php if(session('logged_in') && session('level')=='admin'): ?>
+        
         <div class="d-flex" id="wrapper">
             <!-- Sidebar -->
             <?php echo view('template/sidebar.php');?>
               
             <!-- /#sidebar-wrapper -->
-            <?php echo view('template/container'); ?>
+            <?php echo view('template/container');  ?>
         </div>
     <div class="row my-5">
     <div class="container-fluid px-5">

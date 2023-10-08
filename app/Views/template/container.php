@@ -1,5 +1,19 @@
 
         <!-- Page Content -->
+        <?php
+
+            $db = \Config\Database::connect();
+            $articlesModel = new \App\Models\Article(); 
+
+            $nombre_article = $articlesModel->get_articles_total(); 
+            $nombre_orders = $articlesModel->get_orders_total(); 
+            //var_dump($nombre_orders); 
+            //$article_le_plus_vendu = $articlesModel->orderBy('ventes', 'DESC')->first(); // Obtenez l'article le plus vendu
+
+        ?>
+
+        
+
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                 <div class="d-flex align-items-center">
@@ -38,7 +52,7 @@
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2"> 4920</h3>
+                                <h3 class="fs-2"> <?php echo $nombre_article  ?></h3>
                                 <p class="fs-5">Articles</p>
                             </div>
                             <i class="fas fa-shopping-cart fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -48,7 +62,7 @@
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">4920</h3>
+                                <h3 class="fs-2"><?php echo $nombre_orders  ?></h3>
                                 <p class="fs-5">Ventes</p>
                             </div>
                             <i

@@ -130,12 +130,19 @@ class Article extends Model
         return $builder->get()->getResult();
     }
 
-    function get_articles()
+    function get_articles_total()
     {
         $builder = $this->db->table('produits')->selectSum('quantité', 'totalQuantite')->get();
         $result = $builder->getRowArray();
         return isset($result['totalQuantite']) ? $result['totalQuantite'] : 0;
     } 
+
+    function get_orders_total()
+    {
+        $builder = $this ->db->table('orders')->countAllResults();
+        return isset($builder) ? $builder : 0;
+    } 
+
 
     function get_commandes_liste()
     {
