@@ -7,8 +7,6 @@
 
             $nombre_article = $articlesModel->get_articles_total(); 
             $nombre_orders = $articlesModel->get_orders_total(); 
-            //var_dump($nombre_orders); 
-            //$article_le_plus_vendu = $articlesModel->orderBy('ventes', 'DESC')->first(); // Obtenez l'article le plus vendu
 
         ?>
 
@@ -39,7 +37,6 @@
                                 <?php else: ?>
                                 <li><a class="dropdown-item" href="<?php echo base_url('common/admindashboard/adminparametre') ;?>">Parametre</a></li>
                                 <?php endif; ?>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li><a class="dropdown-item" href="<?php echo base_url('common/logout'); ?>">Deconnexion</a></li>
                             </ul>
                         </li>
@@ -53,7 +50,7 @@
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
                                 <h3 class="fs-2"> <?php echo $nombre_article  ?></h3>
-                                <p class="fs-5">Articles</p>
+                                <p class="fs-5">Articles en Stock</p>
                             </div>
                             <i class="fas fa-shopping-cart fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>
@@ -74,7 +71,7 @@
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
                                 <h3 class="fs-2">3899</h3>
-                                <p class="fs-5">Profit</p>
+                                <p class="fs-5">Article le plus vendu</p>
                             </div>
                             <i class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>
