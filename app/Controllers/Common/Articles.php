@@ -228,4 +228,29 @@ class Articles extends BaseController
             }
         }
     }
+
+    public function stock()
+    {
+        if(!session('logged_in')){
+            $message = "<div class='alert alert-danger' role='alert'>Veuillez vous identifier !</div>";
+            echo view('login_page', array('special_message' => $message));
+        }
+        else{  
+            $articles = new Article();
+    $monthly_orders = $articles->db->table('month')->select('month_name, nombre_ventes')->get()->getResultArray();
+    
+    // Créez un tableau des noms de mois
+    $mois = array_column($monthly_orders, 'month_name');
+    
+    // Créez un tableau des ventes associées à chaque mois
+    $ventes = array_column($monthly_orders, 'nombre_ventes');
+
+    $data = [
+        'mois' => $mois,
+        'ventes' => $ventes,
+    ];
+
+    return view("rapports_view", $data);
+        }
+    }
 }

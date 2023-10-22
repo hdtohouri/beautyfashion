@@ -17,9 +17,8 @@ class AdminDashboard extends BaseController
         else{
             $articles = new Article();
             $data['commandes_liste'] = $articles->get_commandes_liste();
-            //var_dump($quantity);
-            //$data['quantiteArticles'] = $articles->get_articles();
-            //var_dump($data);
+           /* $data['articlesEnStock'] = (array) $articles->get_articles_total();
+            $data['ventes'] = (array) $articles->get_orders_total();*/
             return view("admin/admin_dashboard",$data);
         }
         
@@ -419,6 +418,7 @@ class AdminDashboard extends BaseController
             $article_prix = $this->request->getPost('prix',FILTER_SANITIZE_NUMBER_INT);
             $article_quantité= $this->request->getPost('Quantité',FILTER_SANITIZE_NUMBER_INT);
             $commande_date = $this->request->getPost('date');
+            $mois =  (int)date('m', strtotime($commande_date));
             $total= $this->request->getPost('Total',FILTER_SANITIZE_NUMBER_INT);
             $quantity_in_stock = $manager->article_quantity($article_id);
             
@@ -433,6 +433,7 @@ class AdminDashboard extends BaseController
                 ];
                 
                 $order_details = $manager->add_commandes($details);
+                $monthly_orders= $manager->update_month_orders($mois);
 
                 if ($order_details) 
                 { 

@@ -24,38 +24,10 @@
         <?php echo view('template/sidebar.php');?>
         <!-- /#sidebar-wrapper -->
         <?php echo view('template/container.php');?>
-                
-        <div>
-        <canvas id="myChart"></canvas>
+    
     </div>                   
     <?php endif; ?>   
     <!-- /#page-content-wrapper -->
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('myChart');
-        const mois = <?php echo json_encode($mois); ?>;
-        const ventes = <?php echo json_encode($ventes); ?>;
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-            labels: mois,
-            datasets: [{
-                label: 'Historique des ventes par mois',
-                data: ventes,
-                borderWidth: 2
-            }]
-            },
-            options: {
-                scales: {
-                    y: {
-                    beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
     <script src="<?php echo base_url('bootstrap/js/bootstrap.min.js'); ?>"></script>
     <script>
         var el = document.getElementById("wrapper");
@@ -68,4 +40,3 @@
 </body>
 
 </html>
-

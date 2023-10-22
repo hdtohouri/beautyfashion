@@ -150,7 +150,24 @@ class Article extends Model
         $builder->select('orders.id_produit, orders.update_at, orders.quantité_article, orders.total, produits.nom_produit');
         $builder->join('produits', 'produits.id_produit  = orders.id_produit', 'left');
         $builder->orderBy('orders.id', 'DESC');
+        $builder->limit(12); 
         return $builder->get()->getResult();
     } 
+
+    public function update_month_orders($id)
+    {
+        $builder = $this->db->table('month');
+        $builder->select('month_id, month_name, nombre_ventes');
+        $builder->where('month_id', $id);
+        $builder->set('nombre_ventes', 'nombre_ventes+1', FALSE);
+        $builder->update();
+        if($this->db->affectedRows()==1)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 }
