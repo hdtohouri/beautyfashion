@@ -154,6 +154,15 @@ class Article extends Model
         return $builder->get()->getResult();
     } 
 
+    function get_total_commandes()
+    {
+        $builder = $this->db->table('orders');
+        $builder->select('orders.id_produit, orders.update_at, orders.quantité_article, orders.total, produits.nom_produit');
+        $builder->join('produits', 'produits.id_produit  = orders.id_produit', 'left');
+        $builder->orderBy('orders.id', 'DESC');
+        return $builder->get()->getResult();
+    } 
+
     public function update_month_orders($id)
     {
         $builder = $this->db->table('month');

@@ -463,4 +463,20 @@ class AdminDashboard extends BaseController
         }
     }
 
+    public function list_commandes()
+    {
+        if(!session('logged_in')){
+            $message = "<div class='alert alert-danger' role='alert'>Veuillez vous identifier !</div>";
+            echo view('login_page', array('special_message' => $message));
+        }
+        else{
+            $articles = new Article();
+            $data['commandes_liste'] = $articles->get_total_commandes();
+           /* $data['articlesEnStock'] = (array) $articles->get_articles_total();
+            $data['ventes'] = (array) $articles->get_orders_total();*/
+            return view("admin/commande_liste",$data);
+        }
+        
+    }
+
 }

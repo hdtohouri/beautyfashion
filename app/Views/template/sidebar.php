@@ -39,7 +39,7 @@
                                 <div class="accordion-body">
                                         <a href="<?php echo base_url('common/admindashboard/commandes') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
                                                 class="fas fa-shipping-fast me-2"></i>Nouvelle Commande</a> <br>
-                                        <a href="<?php echo base_url('common/articles/add_articles') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
+                                        <a href="<?php echo base_url('common/articles/list_commandes') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
                                                 class="fas fa-truck me-2"></i>Liste des Commandes</a>
                                 </div>
                         </div>
@@ -127,7 +127,7 @@
                                 <div class="accordion-body">
                                         <a href="<?php echo base_url('common/admindashboard/commandes') ;?>" class="bg-transparent second-text fw-bold mb-2 text-decoration-none"><i
                                                 class="fas fa-shipping-fast me-2"></i>Nouvelle Commande</a> <br>
-                                        <a href="<?php echo base_url('common/articles/add_articles') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
+                                        <a href="<?php echo base_url('common/articles/list_commandes') ;?>" class="bg-transparent second-text fw-bold text-decoration-none"><i
                                                 class="fas fa-truck me-2"></i>Liste des Commandes</a>
                                 </div>
                         </div>

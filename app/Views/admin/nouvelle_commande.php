@@ -52,7 +52,7 @@
                          
                         <div class="mb-4">
                             <label for="prix" class="form-label">Prix de l'article</label>
-                            <input type="number" min="1" class="form-control" name="prix" placeholder="Prix unitaire de l'article" />
+                            <input type="number" min="1" class="form-control" name="prix" placeholder="Prix unitaire de l'article" readonly/>
                             <?php  if (isset($validation) && $validation->hasError('prix')) {
                                     echo "<div style='color: #ff0000'>".$validation->getError('prix')."</div>";
                             } ?>
@@ -85,6 +85,23 @@
             </div>
         </div>
     </div>
+    <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 
     <!-- /#page-content-wrapper -->
     </div>
